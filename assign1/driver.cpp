@@ -17,7 +17,7 @@ void PrintList(const TVector<T> &v, string label)
 int main()
 {
     TVector<int> v1; // integer list
-    for (int i = 0; i < 10; i++)
+    /* for (int i = 0; i < 10; i++)
         v1.InsertBack(i * 3);
 
     PrintList(v1, "v1");
@@ -99,5 +99,5 @@ int main()
 
     cout << "Calling:  v4.Remove(itr1, itr2);\n";
     v4.Remove(itr1, itr2);
-    PrintList(v4, "v4");
+    PrintList(v4, "v4"); */
 }
