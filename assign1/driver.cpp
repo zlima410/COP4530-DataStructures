@@ -17,7 +17,6 @@ void PrintList(const TVector<T> &v, string label)
 int main()
 {
     TVector<int> v1; // integer list
-
     for (int i = 0; i < 10; i++)
         v1.InsertBack(i * 3);
 
