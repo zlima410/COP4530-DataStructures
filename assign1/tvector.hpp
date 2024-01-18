@@ -4,7 +4,7 @@
 
 // Definition of class TVector
 template <typename T>
-TVector<T>::TVector() : capacity{SPARECAPACITY}, size{ 0 }
+TVector<T>::TVector() : capacity(SPARECAPACITY), size(0)
 {
 
 }
@@ -18,7 +18,7 @@ TVector<T>::TVector(T val, int num)
 template <typename T>
 TVector<T>::~TVector() // destructor
 {
-    delete array;   // deallocates memory used for array
+    delete [] array;   // deallocates memory used for array
 }
 
 template <typename T>
@@ -44,6 +44,6 @@ TVector<T>::TVector(TVector<T> &&v) : array{ v.array } // move constructor
 template <typename T>
 TVector<T>& TVector<T>::operator=(TVector<T> &&v) // move assignment operator
 {
-    swap(array, v.array);   // swaps the two pointees with each other 
+    std::swap(array, v.array);   // swaps the two pointees with each other 
     return *this;
 }
