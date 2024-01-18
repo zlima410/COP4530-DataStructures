@@ -10,9 +10,10 @@ TVector<T>::TVector() : capacity(SPARECAPACITY), size(0)
 }
 
 template <typename T>
-TVector<T>::TVector(T val, int num)
+TVector<T>::TVector(T val, int num) : capacity(SPARECAPACITY + num), size(num)
 {
-    array = new T[num];           // creates a new array with size = num
+
+    array = new T[capacity];           // creates a new array with size = num
     for (int i = 0; i < num; i++) // sets each element of the array to val
         array[i] = val;
 }
