@@ -140,7 +140,11 @@ TVectorIterator<T> TVector<T>::Remove(TVectorIterator<T> pos1, TVectorIterator<T
 {
 }
 
-/* template <typename T>
-void TVector<T>::Print(std::ostream &os, char delim = ' ') const
+template <typename T>
+void TVector<T>::Print(std::ostream &os, char delim) const
 {
-} */
+    for (int i = 0; i < size; i++)
+    {
+        os << array[i] << delim;
+    }
+}

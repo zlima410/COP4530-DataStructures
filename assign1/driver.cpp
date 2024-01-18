@@ -17,12 +17,12 @@ void PrintList(const TVector<T> &v, string label)
 int main()
 {
     TVector<int> v1; // integer list
-    /* for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 10; i++)
         v1.InsertBack(i * 3);
 
     PrintList(v1, "v1");
 
-    for (int i = 0; i < 8; i++)
+    /* for (int i = 0; i < 8; i++)
         v1.Insert(v1.GetIterator(), (i + 1) * 50);
 
     PrintList(v1, "v1");
