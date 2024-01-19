@@ -117,11 +117,13 @@ T &TVector<T>::GetLast() const
 template <typename T>
 TVectorIterator<T> TVector<T>::GetIterator() const
 {
+    return TVectorIterator<T>(array); // returns an iterator to the first element of the array
 }
 
 template <typename T>
 TVectorIterator<T> TVector<T>::GetIteratorEnd() const
 {
+    return TVectorIterator<T>(array + size); // returns an iterator to the last element of the array
 }
 
 template <typename T>
@@ -147,7 +149,7 @@ void TVector<T>::SetCapacity(unsigned int c)
     array = temp;
 }
 
-template <typename T>
+/* template <typename T>
 TVectorIterator<T> TVector<T>::Insert(TVectorIterator<T> pos, const T &d)
 {
 }
@@ -160,7 +162,7 @@ TVectorIterator<T> TVector<T>::Remove(TVectorIterator<T> pos)
 template <typename T>
 TVectorIterator<T> TVector<T>::Remove(TVectorIterator<T> pos1, TVectorIterator<T> pos2)
 {
-}
+} */
 
 template <typename T>
 void TVector<T>::Print(std::ostream &os, char delim) const
@@ -170,3 +172,41 @@ void TVector<T>::Print(std::ostream &os, char delim) const
         os << array[i] << delim;
     }
 }
+
+// Definition of class TVectorIterator ===========================//
+template <typename T>
+TVectorIterator<T>::TVectorIterator()
+{
+    ptr = nullptr;
+}
+
+/* template <typename T>
+bool TVectorIterator<T>::HasNext() const
+{
+    
+}
+
+template <typename T>
+bool TVectorIterator<T>::HasPrevious() const
+{
+    
+}
+
+template <typename T>
+TVectorIterator<T> TVectorIterator<T>::Next()
+{
+    
+}
+
+template <typename T>
+TVectorIterator<T> TVectorIterator<T>::Previous()
+{
+    
+} */
+
+template <typename T>
+T &TVectorIterator<T>::GetData() const
+{
+    return *ptr;
+}
+
