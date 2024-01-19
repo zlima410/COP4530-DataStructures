@@ -140,7 +140,7 @@ void TVector<T>::SetCapacity(unsigned int c)
 
     for (int i = 0; i < size; i++)
     {
-        temp[i] = array[i];
+        temp[i] = std::move(array[i]);
     }
 
     delete[] array;
