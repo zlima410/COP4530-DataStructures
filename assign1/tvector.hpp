@@ -63,14 +63,14 @@ bool TVector<T>::IsEmpty() const // checks to see whether container is empty
 template <typename T>
 void TVector<T>::Clear() // clear out Vector, reset to empty
 {
-    size = 0; // sets size to 0
+    for (int i = 0; i < size; i++)
+        array[i].~T();
+
+    size = 0;
 }
 
 template <typename T>
-int TVector<T>::GetSize() const // return the size of the Vector
-{
-    return size;
-}
+int TVector<T>::GetSize() const { return size; }
 
 template <typename T>
 void TVector<T>::InsertBack(const T &d) // insert data d as last element
@@ -81,7 +81,7 @@ void TVector<T>::InsertBack(const T &d) // insert data d as last element
 
         for (int i = 0; i < capacity; i++)
         {
-            temp[i] = array[i];
+            temp[i] = std::move(array[i]);
         }
 
         delete[] array;
@@ -96,7 +96,10 @@ void TVector<T>::InsertBack(const T &d) // insert data d as last element
 template <typename T>
 void TVector<T>::RemoveBack() // remove last element of Vector
 {
-    size--; // decrement size
+    if (size > 0) {
+        size--;
+        array[size].~T(); // sets the last element of the array to the default value of the type
+    }
 }
 
 template <typename T>
@@ -124,6 +127,24 @@ TVectorIterator<T> TVector<T>::GetIteratorEnd() const
 template <typename T>
 void TVector<T>::SetCapacity(unsigned int c)
 {
+    //reset the capacity of the vector to c and adjust size if c is smaller
+    if (c < capacity)
+    {
+        capacity = c;
+        size = c;
+    }
+    else
+        capacity = c;
+
+    T *temp = new T[capacity];
+
+    for (int i = 0; i < size; i++)
+    {
+        temp[i] = array[i];
+    }
+
+    delete[] array;
+    array = temp;
 }
 
 template <typename T>

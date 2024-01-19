@@ -23,7 +23,7 @@ int main()
     PrintList(v1, "v1");
 
     /* for (int i = 0; i < 8; i++)
-        v1.Insert(v1.GetIterator(), (i + 1) * 50);
+        v1.Insert(v1.GetIterator(), (i + 1) * 50); */
 
     PrintList(v1, "v1");
 
@@ -33,7 +33,7 @@ int main()
     v1.RemoveBack();
     PrintList(v1, "v1");
 
-    v1.Remove(v1.GetIterator());
+    /* v1.Remove(v1.GetIterator());
     PrintList(v1, "v1");
 
     v1.Remove(v1.GetIterator());
