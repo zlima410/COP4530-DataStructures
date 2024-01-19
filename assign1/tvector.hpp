@@ -13,7 +13,7 @@ template <typename T>
 TVector<T>::TVector(T val, int num) : capacity(SPARECAPACITY + num), size(num)
 {
 
-    array = new T[capacity];           // creates a new array with size = num
+    array = new T[capacity];      // creates a new array with size = num
     for (int i = 0; i < num; i++) // sets each element of the array to val
         array[i] = val;
 }
@@ -96,7 +96,8 @@ void TVector<T>::InsertBack(const T &d) // insert data d as last element
 template <typename T>
 void TVector<T>::RemoveBack() // remove last element of Vector
 {
-    if (size > 0) {
+    if (size > 0)
+    {
         size--;
         array[size].~T(); // sets the last element of the array to the default value of the type
     }
@@ -129,7 +130,7 @@ TVectorIterator<T> TVector<T>::GetIteratorEnd() const
 template <typename T>
 void TVector<T>::SetCapacity(unsigned int c)
 {
-    //reset the capacity of the vector to c and adjust size if c is smaller
+    // reset the capacity of the vector to c and adjust size if c is smaller
     if (c < capacity)
     {
         capacity = c;
@@ -173,6 +174,11 @@ void TVector<T>::Print(std::ostream &os, char delim) const
     }
 }
 
+template <typename T>
+TVector<T> operator+(const TVector<T> &t1, const TVector<T> &t2)
+{
+}
+
 // Definition of class TVectorIterator ===========================//
 template <typename T>
 TVectorIterator<T>::TVectorIterator()
@@ -183,25 +189,25 @@ TVectorIterator<T>::TVectorIterator()
 /* template <typename T>
 bool TVectorIterator<T>::HasNext() const
 {
-    
+
 }
 
 template <typename T>
 bool TVectorIterator<T>::HasPrevious() const
 {
-    
+
 }
 
 template <typename T>
 TVectorIterator<T> TVectorIterator<T>::Next()
 {
-    
+
 }
 
 template <typename T>
 TVectorIterator<T> TVectorIterator<T>::Previous()
 {
-    
+
 } */
 
 template <typename T>
@@ -209,4 +215,3 @@ T &TVectorIterator<T>::GetData() const
 {
     return *ptr;
 }
-
