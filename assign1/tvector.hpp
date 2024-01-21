@@ -283,5 +283,8 @@ TVectorIterator<T> TVectorIterator<T>::Previous()
 template <typename T>
 T &TVectorIterator<T>::GetData() const
 {
+    if (index < 0 || index > vsize)
+        return TVector<T>::dummy;
+
     return *ptr;
 }
