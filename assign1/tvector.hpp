@@ -186,25 +186,31 @@ TVectorIterator<T>::TVectorIterator()
     ptr = nullptr;
 }
 
-/* template <typename T>
+template <typename T>
 bool TVectorIterator<T>::HasNext() const
 {
-
+    return  current != array.GetLast();
 }
 
-template <typename T>
+/* template <typename T>
 bool TVectorIterator<T>::HasPrevious() const
 {
 
-}
+} */
 
 template <typename T>
 TVectorIterator<T> TVectorIterator<T>::Next()
 {
-
+    if (HasNext())
+    {
+        current++;
+        return *this;
+    }
+    else
+        return nullptr;
 }
 
-template <typename T>
+/* template <typename T>
 TVectorIterator<T> TVectorIterator<T>::Previous()
 {
 
