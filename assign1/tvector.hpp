@@ -54,10 +54,7 @@ TVector<T> &TVector<T>::operator=(TVector<T> &&v) // move assignment operator
 template <typename T>
 bool TVector<T>::IsEmpty() const // checks to see whether container is empty
 {
-    if (size == 0) // if size is 0 then the container is empty
-        return true;
-    else
-        return false;
+    return size == 0; // if size is 0 then the container is empty
 }
 
 template <typename T>
@@ -106,25 +103,41 @@ void TVector<T>::RemoveBack() // remove last element of Vector
 template <typename T>
 T &TVector<T>::GetFirst() const
 {
+    if (size == 0)
+        return nullptr;
+
     return array[0]; // returns the first element of the array
 }
 
 template <typename T>
 T &TVector<T>::GetLast() const
 {
+    if (size == 0)
+        return nullptr;
+
     return array[size - 1]; // returns the last elemnet of the array
 }
 
 template <typename T>
 TVectorIterator<T> TVector<T>::GetIterator() const
 {
-    return TVectorIterator<T>(array); // returns an iterator to the first element of the array
+    TVectorIterator<T> itr;
+    itr.index = 0;
+    itr.vsize = size;
+    itr.ptr = array;
+
+    return itr; // returns an iterator to the first element of the array
 }
 
 template <typename T>
 TVectorIterator<T> TVector<T>::GetIteratorEnd() const
 {
-    return TVectorIterator<T>(array + size); // returns an iterator to the last element of the array
+    TVectorIterator<T> itr;
+    itr.index = size - 1;
+    itr.vsize = size;
+    itr.ptr = array+(size-1);
+
+    return itr; // returns an iterator to the last element of the array
 }
 
 template <typename T>
@@ -189,7 +202,7 @@ TVectorIterator<T>::TVectorIterator()
 template <typename T>
 bool TVectorIterator<T>::HasNext() const
 {
-    return  current != array.GetLast();
+    return  index != ptr.GetLast();
 }
 
 /* template <typename T>
@@ -203,7 +216,7 @@ TVectorIterator<T> TVectorIterator<T>::Next()
 {
     if (HasNext())
     {
-        current++;
+        index++;
         return *this;
     }
     else

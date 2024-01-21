@@ -25,6 +25,10 @@ int main()
     /* for (int i = 0; i < 8; i++)
         v1.Insert(v1.GetIterator(), (i + 1) * 50); */
 
+    TVectorIterator<int> itr = v1.GetIterator();
+    itr = v1.Insert(itr, 999);
+    itr.Next();
+
     PrintList(v1, "v1");
 
     v1.RemoveBack();
