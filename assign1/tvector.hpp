@@ -143,24 +143,18 @@ TVectorIterator<T> TVector<T>::GetIteratorEnd() const
 template <typename T>
 void TVector<T>::SetCapacity(unsigned int c)
 {
-    // reset the capacity of the vector to c and adjust size if c is smaller
-    if (c < capacity)
-    {
-        capacity = c;
-        size = c;
-    }
-    else
-        capacity = c;
+    capacity = c;
 
-    T *temp = new T[capacity];
+    if (capacity < size)
+        size = capacity;
+
+    T *newArray = new T[capacity];
 
     for (int i = 0; i < size; i++)
-    {
-        temp[i] = std::move(array[i]);
-    }
+        newArray[i] = std::move(array[i]);
 
     delete[] array;
-    array = temp;
+    array = newArray;
 }
 
 /* template <typename T>
