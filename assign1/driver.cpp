@@ -40,7 +40,7 @@ int main()
     PrintList(v1, "v1");
 
     // try an iterator, and some middle inserts/deletes
-   /*  cout << "Testing some inserts with an iterator\n\n";
+    cout << "Testing some inserts with an iterator\n\n";
 
     TVectorIterator<int> itr = v1.GetIterator();
     itr = v1.Insert(itr, 999);
@@ -52,7 +52,7 @@ int main()
     itr.Next(); // advance three spots
     itr = v1.Insert(itr, 777);
 
-    PrintList(v1, "v1"); */
+    PrintList(v1, "v1");
 
     /* cout << "Testing some removes (with iterator)\n\n";
 
