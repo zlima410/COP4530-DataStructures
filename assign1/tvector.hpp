@@ -270,11 +270,15 @@ TVectorIterator<T> TVectorIterator<T>::Next()
     return *this;
 }
 
-/* template <typename T>
+template <typename T>
 TVectorIterator<T> TVectorIterator<T>::Previous()
 {
-
-} */
+    if (index >= 0) {
+        index--;
+        *ptr--;
+    }
+    return *this;
+}
 
 template <typename T>
 T &TVectorIterator<T>::GetData() const
