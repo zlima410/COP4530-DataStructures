@@ -22,12 +22,8 @@ int main()
 
     PrintList(v1, "v1");
 
-    /* for (int i = 0; i < 8; i++)
-        v1.Insert(v1.GetIterator(), (i + 1) * 50); */
-
-    TVectorIterator<int> itr = v1.GetIterator();
-    itr = v1.Insert(itr, 999);
-    itr.Next();
+    for (int i = 0; i < 8; i++)
+        v1.Insert(v1.GetIterator(), (i + 1) * 50);
 
     PrintList(v1, "v1");
 
@@ -37,14 +33,14 @@ int main()
     v1.RemoveBack();
     PrintList(v1, "v1");
 
-    /* v1.Remove(v1.GetIterator());
+    v1.Remove(v1.GetIterator());
     PrintList(v1, "v1");
 
     v1.Remove(v1.GetIterator());
     PrintList(v1, "v1");
 
     // try an iterator, and some middle inserts/deletes
-    cout << "Testing some inserts with an iterator\n\n";
+   /*  cout << "Testing some inserts with an iterator\n\n";
 
     TVectorIterator<int> itr = v1.GetIterator();
     itr = v1.Insert(itr, 999);
@@ -56,9 +52,9 @@ int main()
     itr.Next(); // advance three spots
     itr = v1.Insert(itr, 777);
 
-    PrintList(v1, "v1");
+    PrintList(v1, "v1"); */
 
-    cout << "Testing some removes (with iterator)\n\n";
+    /* cout << "Testing some removes (with iterator)\n\n";
 
     itr.Next();
     itr.Next();           // advance two spots
@@ -69,19 +65,19 @@ int main()
         itr.Previous(); // back 5 spots
 
     itr = v1.Remove(itr); // delete current item
-    PrintList(v1, "v1");
+    PrintList(v1, "v1"); */
 
     // building another list
 
-    cout << "Building a new list\n";
+    /* cout << "Building a new list\n";
     TVector<int> v2;
     for (int i = 0; i < 10; i++)
         v2.InsertBack(i * 3 + 1);
 
-    PrintList(v2, "v2");
+    PrintList(v2, "v2"); */
 
     // Testing + overload:
-    cout << "Testing operator+ overload\n";
+    /* cout << "Testing operator+ overload\n";
     TVector<int> v3 = v1 + TVector<int>(100, 7);
 
     TVector<int> v4;
@@ -89,8 +85,8 @@ int main()
 
     PrintList(v3, "v3");
     PrintList(v4, "v4");
-
-    cout << "Testing a call to the 2-param delete\n";
+ */
+    /* cout << "Testing a call to the 2-param delete\n";
     TVectorIterator<int> itr1 = v4.GetIterator();
     TVectorIterator<int> itr2 = v4.GetIterator();
 
