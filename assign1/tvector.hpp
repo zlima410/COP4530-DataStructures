@@ -14,7 +14,7 @@ TVector<T>::TVector(T val, int num) : capacity(SPARECAPACITY + num), size(num)
 {
 
     array = new T[capacity];      // creates a new array with size = num
-    for (int i = 0; i < num; i++) // sets each element of the array to val
+    for (int i = 0; i < size; i++) // sets each element of the array to val
         array[i] = val;
 }
 
@@ -22,32 +22,61 @@ template <typename T>
 TVector<T>::~TVector() // destructor
 {
     delete[] array; // deallocates memory used for array
+    size = 0;
+    capacity = 0;
 }
 
 template <typename T>
 TVector<T>::TVector(const TVector<T> &v) // copy constructor
 {
-    array = new T{*v.array}; // creates a new copy of the input array
+    capacity = v.capacity; // sets the capacity of the new array to the capacity of the input array
+    size = v.size;         // sets the size of the new array to the size of the input array
+    array = new T[v.capacity]; // creates a new copy of the input array
+
+    for (int i = 0; i < size; i++)
+        array[i] = std::move(v.array[i]);
 }
 
 template <typename T>
 TVector<T> &TVector<T>::operator=(const TVector<T> &v) // copy assignment operator
 {
     if (this != &v)        // checks if the lhs and rhs point to different data
-        *array = *v.array; // if true set the lhs array equal to the rhs
+    {
+        delete[] array;    // deallocates memory used for array
+        capacity = v.capacity; // sets the capacity of the new array to the capacity of the input array
+        size = v.size;         // sets the size of the new array to the size of the input array
+        array = new T[v.capacity]; // creates a new copy of the input array
+
+        for (int i = 0; i < size; i++)
+            array[i] = std::move(v.array[i]);
+    }
     return *this;
 }
 
 template <typename T>
-TVector<T>::TVector(TVector<T> &&v) : array{v.array} // move constructor
+TVector<T>::TVector(TVector<T> &&v) // move constructor
 {
-    v.array = nullptr; // set array to null pointer so the data won't be destroyed
+    capacity = v.capacity; // sets the capacity of the new array to the capacity of the input array
+    size = v.size;         // sets the size of the new array to the size of the input array
+    array = new T[v.capacity];       // sets the new array to the input array
+
+    for (int i = 0; i < size; i++)
+        array[i] = std::move(v.array[i]);
 }
 
 template <typename T>
 TVector<T> &TVector<T>::operator=(TVector<T> &&v) // move assignment operator
 {
-    std::swap(array, v.array); // swaps the two pointees with each other
+    if (this != &v)
+    {
+        delete[] array;    // deallocates memory used for array
+        capacity = v.capacity; // sets the capacity of the new array to the capacity of the input array
+        size = v.size;         // sets the size of the new array to the size of the input array
+        array = new T[v.capacity]; // sets the new array to the input array
+
+        for (int i = 0; i < size; i++)
+            array[i] = std::move(v.array[i]);
+    }
     return *this;
 }
 
@@ -60,9 +89,6 @@ bool TVector<T>::IsEmpty() const // checks to see whether container is empty
 template <typename T>
 void TVector<T>::Clear() // clear out Vector, reset to empty
 {
-    for (int i = 0; i < size; i++)
-        array[i].~T();
-
     size = 0;
 }
 
@@ -73,31 +99,17 @@ template <typename T>
 void TVector<T>::InsertBack(const T &d) // insert data d as last element
 {
     if (size == capacity)
-    {
-        T *temp = new T[2 * capacity];
+        SetCapacity(2 * capacity); // doubles the capacity of the array if the array is full
 
-        for (int i = 0; i < capacity; i++)
-        {
-            temp[i] = std::move(array[i]);
-        }
-
-        delete[] array;
-        capacity *= 2;
-        array = temp;
-    }
-
-    array[size] = d;
-    size++;
+    array[size] = d; // sets the last element of the array to d
+    size++;          // increments the size of the array
 }
 
 template <typename T>
 void TVector<T>::RemoveBack() // remove last element of Vector
 {
     if (size > 0)
-    {
-        size--;
-        array[size].~T(); // sets the last element of the array to the default value of the type
-    }
+        size--; // decrements the size of the array
 }
 
 template <typename T>
@@ -157,9 +169,26 @@ void TVector<T>::SetCapacity(unsigned int c)
     array = newArray;
 }
 
-/* template <typename T>
+template <typename T>
 TVectorIterator<T> TVector<T>::Insert(TVectorIterator<T> pos, const T &d)
 {
+    int position = pos.index;
+
+    if (size == capacity)
+        SetCapacity(2 * capacity); // doubles the capacity of the array if the array is full
+
+    int i = size - 1;
+    for (i = size - 1; i >= position; i--)
+        array[i + 1] = std::move(array[i]);
+
+    array[i + 1] = d;
+    size++;
+    
+    pos.index = i;
+    pos.vsize = size;
+    pos.ptr = array + i;
+
+    return pos;
 }
 
 template <typename T>
@@ -170,7 +199,7 @@ TVectorIterator<T> TVector<T>::Remove(TVectorIterator<T> pos)
 template <typename T>
 TVectorIterator<T> TVector<T>::Remove(TVectorIterator<T> pos1, TVectorIterator<T> pos2)
 {
-} */
+}
 
 template <typename T>
 void TVector<T>::Print(std::ostream &os, char delim) const
