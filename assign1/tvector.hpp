@@ -257,19 +257,17 @@ bool TVectorIterator<T>::HasNext() const
 template <typename T>
 bool TVectorIterator<T>::HasPrevious() const
 {
-
+    return index > 0;
 }
 
 template <typename T>
 TVectorIterator<T> TVectorIterator<T>::Next()
 {
-    if (HasNext())
-    {
+    if (index <= vsize - 1) {
         index++;
-        return *this;
+        *ptr++;
     }
-    else
-        return nullptr;
+    return *this;
 }
 
 /* template <typename T>
