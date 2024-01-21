@@ -212,6 +212,22 @@ TVectorIterator<T> TVector<T>::Remove(TVectorIterator<T> pos)
 template <typename T>
 TVectorIterator<T> TVector<T>::Remove(TVectorIterator<T> pos1, TVectorIterator<T> pos2)
 {
+    int position1 = pos1.index;
+    int position2 = pos2.index;
+    int i = position1;
+    int k = position2;
+
+    for (i = position1; i < position2; i++)
+        array[i] = std::move(array[k++]);
+
+    size -= (position2 - position1);
+
+    TVectorIterator<T> pos;
+    pos.index = i;
+    pos.vsize = size;
+    pos.ptr = array + i;
+
+    return pos;
 }
 
 template <typename T>
@@ -230,22 +246,19 @@ TVector<T> operator+(const TVector<T> &t1, const TVector<T> &t2)
 
 // Definition of class TVectorIterator ===========================//
 template <typename T>
-TVectorIterator<T>::TVectorIterator()
-{
-    ptr = nullptr;
-}
+TVectorIterator<T>::TVectorIterator() { }
 
 template <typename T>
 bool TVectorIterator<T>::HasNext() const
 {
-    return  index != ptr.GetLast();
+    return  index < vsize - 1;
 }
 
-/* template <typename T>
+template <typename T>
 bool TVectorIterator<T>::HasPrevious() const
 {
 
-} */
+}
 
 template <typename T>
 TVectorIterator<T> TVectorIterator<T>::Next()
