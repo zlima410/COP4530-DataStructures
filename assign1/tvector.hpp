@@ -183,7 +183,7 @@ TVectorIterator<T> TVector<T>::Insert(TVectorIterator<T> pos, const T &d)
 
     array[i + 1] = d;
     size++;
-    
+
     pos.index = i;
     pos.vsize = size;
     pos.ptr = array + i;
@@ -194,6 +194,19 @@ TVectorIterator<T> TVector<T>::Insert(TVectorIterator<T> pos, const T &d)
 template <typename T>
 TVectorIterator<T> TVector<T>::Remove(TVectorIterator<T> pos)
 {
+    int position = pos.index;
+    int i = position;
+
+    for (i = position; i < size - 1; i++)
+        array[i] = std::move(array[i + 1]);
+
+    size--;
+
+    pos.index = position;
+    pos.vsize = size;
+    pos.ptr = array + position;
+
+    return pos;
 }
 
 template <typename T>
