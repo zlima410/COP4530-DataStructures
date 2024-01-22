@@ -101,7 +101,7 @@ template <typename T>
 void TVector<T>::InsertBack(const T &d) // insert data d as last element
 {
     if (size == capacity)
-        SetCapacity(2 * capacity); // doubles the capacity of the array if the array is full
+        SetCapacity(2 * capacity + 1); // doubles the capacity of the array if the array is full
 
     array[size] = d; // sets the last element of the array to d
     size++;          // increments the size of the array
@@ -177,7 +177,7 @@ TVectorIterator<T> TVector<T>::Insert(TVectorIterator<T> pos, const T &d)
     int position = pos.index;
 
     if (size == capacity)
-        SetCapacity(2 * capacity); // doubles the capacity of the array if the array is full
+        SetCapacity(2 * capacity + 1); // doubles the capacity of the array if the array is full
 
     int i = size - 1;
     for (i = size - 1; i >= position; i--)
