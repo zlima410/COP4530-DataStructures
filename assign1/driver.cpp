@@ -47,10 +47,10 @@ int main()
     itr.Next();
     itr.Next(); // advance two spots
     itr = v1.Insert(itr, 888);
-    itr.Next();
+    /* itr.Next();
     itr.Next();
     itr.Next(); // advance three spots
-    itr = v1.Insert(itr, 777);
+    itr = v1.Insert(itr, 777); */
 
     PrintList(v1, "v1");
 
