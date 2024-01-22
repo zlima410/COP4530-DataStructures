@@ -21,7 +21,9 @@ TVector<T>::TVector(T val, int num) : capacity(SPARECAPACITY + num), size(num)
 template <typename T>
 TVector<T>::~TVector() // destructor
 {
-    delete[] array; // deallocates memory used for array
+    if (array != nullptr)
+        delete[] array; // deallocates memory used for array
+    
     size = 0;
     capacity = 0;
 }
