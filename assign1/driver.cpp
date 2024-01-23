@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ostream>
 #include <string>
 
 #include "tvector.h"
@@ -43,16 +44,42 @@ int main()
     cout << "Testing some inserts with an iterator\n\n";
 
     TVectorIterator<int> itr = v1.GetIterator();
+
+    cout << "Printing out itr: " << endl;
+    PrintList(v1, "v1");
+
+    cout << "Inserting 999 at the beginning of the list" << endl;
     itr = v1.Insert(itr, 999);
+    PrintList(v1, "v1");
+
+    cout << "Stepping once through the list" << endl;
     itr.Next();
+    PrintList(v1, "v1");
+
+    cout << "Taking another step through the list" << endl;
     itr.Next(); // advance two spots
-    /* itr = v1.Insert(itr, 888);
+    PrintList(v1, "v1");
+
+    cout << "Inserting 888 at the beginning of the list" << endl;
+    itr = v1.Insert(itr, 888);
+    PrintList(v1, "v1");
+
+    cout << "Stepping once through the list" << endl;
     itr.Next();
+    PrintList(v1, "v1");
+
+    cout << "Stepping once through the list" << endl;
     itr.Next();
-    itr.Next(); // advance three spots
+    PrintList(v1, "v1");
+
+    cout << "Stepping once through the list" << endl;
+    itr.Next();
+    PrintList(v1, "v1");
+
+    cout << "Inserting 888 at the beginning of the list" << endl;
     itr = v1.Insert(itr, 777);
 
-    PrintList(v1, "v1"); */
+    PrintList(v1, "v1");
 
     /* cout << "Testing some removes (with iterator)\n\n";
 
