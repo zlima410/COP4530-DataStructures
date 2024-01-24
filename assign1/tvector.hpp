@@ -136,7 +136,7 @@ template <typename T>
 TVectorIterator<T> TVector<T>::GetIterator() const
 {
     TVectorIterator<T> itr;
-    itr.index = 0;
+    itr.index = -1;
     itr.vsize = size;
     itr.ptr = array;
 
@@ -206,7 +206,7 @@ TVectorIterator<T> TVector<T>::Insert(TVectorIterator<T> pos, const T &d)
 template <typename T>
 TVectorIterator<T> TVector<T>::Remove(TVectorIterator<T> pos)
 {
-    int position = pos.index;
+    int position = pos.index + 1;
     int i = position;
 
     for (i = position; i < size - 1; i++)
