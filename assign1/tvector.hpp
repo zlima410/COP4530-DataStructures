@@ -117,7 +117,7 @@ template <typename T>
 T &TVector<T>::GetFirst() const
 {
     if (size == 0)
-        return nullptr;
+        return TVector<T>::dummy;
 
     return array[0]; // returns the first element of the array
 }
@@ -126,7 +126,7 @@ template <typename T>
 T &TVector<T>::GetLast() const
 {
     if (size == 0)
-        return nullptr;
+        return TVector<T>::dummy;
 
     return array[size - 1]; // returns the last elemnet of the array
 }
