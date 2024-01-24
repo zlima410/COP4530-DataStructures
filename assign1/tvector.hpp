@@ -186,8 +186,7 @@ TVectorIterator<T> TVector<T>::Insert(TVectorIterator<T> pos, const T &d)
     if (size == capacity)
         SetCapacity(2 * capacity + 1); // doubles the capacity of the array if the array is full
 
-    int i = size - 1;
-    for (i = size - 1; i >= position; i--)
+    for (int i = size - 1; i >= position; i--)
         array[i + 1] = std::move(array[i]);
 
     array[position] = d;
