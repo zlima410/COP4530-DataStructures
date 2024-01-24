@@ -174,23 +174,33 @@ void TVector<T>::SetCapacity(unsigned int c)
 template <typename T>
 TVectorIterator<T> TVector<T>::Insert(TVectorIterator<T> pos, const T &d)
 {
-    int position = pos.index;
+    TVectorIterator<T> itr;
+    itr.index = pos.index;
+
+    if (size == 0)
+    {
+        InsertBack(d);
+        itr.index = 0;
+        itr.vsize = size;
+        itr.ptr = array;
+        return itr;
+    }
 
     if (size == capacity)
         SetCapacity(2 * capacity + 1); // doubles the capacity of the array if the array is full
 
     int i = size - 1;
-    for (i = size - 1; i >= position; i--)
+    for (i = size - 1; i > itr.index; i--)
         array[i + 1] = std::move(array[i]);
 
     array[i + 1] = d;
     size++;
 
-    pos.index = i;
-    pos.vsize = size;
-    pos.ptr = array + i;
+    itr.index = i;
+    itr.vsize = size;
+    itr.ptr = array + i;
 
-    return pos;
+    return itr;
 }
 
 template <typename T>
@@ -248,7 +258,10 @@ TVector<T> operator+(const TVector<T> &t1, const TVector<T> &t2)
 
 // Definition of class TVectorIterator ===========================//
 template <typename T>
-TVectorIterator<T>::TVectorIterator() { }
+TVectorIterator<T>::TVectorIterator() { 
+    ptr = nullptr;
+    vsize = 0;
+}
 
 template <typename T>
 bool TVectorIterator<T>::HasNext() const
@@ -267,7 +280,7 @@ TVectorIterator<T> TVectorIterator<T>::Next()
 {
     if (index <= vsize - 1) {
         index++;
-        *ptr++;
+        ptr++;
     }
     return *this;
 }
@@ -277,7 +290,7 @@ TVectorIterator<T> TVectorIterator<T>::Previous()
 {
     if (index >= 0) {
         index--;
-        *ptr--;
+        ptr--;
     }
     return *this;
 }
