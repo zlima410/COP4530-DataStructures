@@ -55,7 +55,7 @@ int main()
 
     PrintList(v1, "v1");
 
-    /* cout << "Testing some removes (with iterator)\n\n";
+    cout << "Testing some removes (with iterator)\n\n";
 
     itr.Next();
     itr.Next();           // advance two spots
@@ -66,7 +66,7 @@ int main()
         itr.Previous(); // back 5 spots
 
     itr = v1.Remove(itr); // delete current item
-    PrintList(v1, "v1"); */
+    PrintList(v1, "v1");
 
     // building another list
 
