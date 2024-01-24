@@ -13,7 +13,7 @@ template <typename T>
 TVector<T>::TVector(T val, int num) : capacity(SPARECAPACITY + num), size(num)
 {
 
-    array = new T[capacity];      // creates a new array with size = num
+    array = new T[capacity];       // creates a new array with size = num
     for (int i = 0; i < size; i++) // sets each element of the array to val
         array[i] = val;
 }
@@ -23,7 +23,7 @@ TVector<T>::~TVector() // destructor
 {
     if (array != nullptr)
         delete[] array; // deallocates memory used for array
-    
+
     size = 0;
     capacity = 0;
 }
@@ -31,8 +31,8 @@ TVector<T>::~TVector() // destructor
 template <typename T>
 TVector<T>::TVector(const TVector<T> &v) // copy constructor
 {
-    capacity = v.capacity; // sets the capacity of the new array to the capacity of the input array
-    size = v.size;         // sets the size of the new array to the size of the input array
+    capacity = v.capacity;     // sets the capacity of the new array to the capacity of the input array
+    size = v.size;             // sets the size of the new array to the size of the input array
     array = new T[v.capacity]; // creates a new copy of the input array
 
     for (int i = 0; i < size; i++)
@@ -42,11 +42,11 @@ TVector<T>::TVector(const TVector<T> &v) // copy constructor
 template <typename T>
 TVector<T> &TVector<T>::operator=(const TVector<T> &v) // copy assignment operator
 {
-    if (this != &v)        // checks if the lhs and rhs point to different data
+    if (this != &v) // checks if the lhs and rhs point to different data
     {
-        delete[] array;    // deallocates memory used for array
-        capacity = v.capacity; // sets the capacity of the new array to the capacity of the input array
-        size = v.size;         // sets the size of the new array to the size of the input array
+        delete[] array;            // deallocates memory used for array
+        capacity = v.capacity;     // sets the capacity of the new array to the capacity of the input array
+        size = v.size;             // sets the size of the new array to the size of the input array
         array = new T[v.capacity]; // creates a new copy of the input array
 
         for (int i = 0; i < size; i++)
@@ -58,9 +58,9 @@ TVector<T> &TVector<T>::operator=(const TVector<T> &v) // copy assignment operat
 template <typename T>
 TVector<T>::TVector(TVector<T> &&v) // move constructor
 {
-    capacity = v.capacity; // sets the capacity of the new array to the capacity of the input array
-    size = v.size;         // sets the size of the new array to the size of the input array
-    array = new T[v.capacity];       // sets the new array to the input array
+    capacity = v.capacity;     // sets the capacity of the new array to the capacity of the input array
+    size = v.size;             // sets the size of the new array to the size of the input array
+    array = new T[v.capacity]; // sets the new array to the input array
 
     for (int i = 0; i < size; i++)
         array[i] = std::move(v.array[i]);
@@ -71,9 +71,9 @@ TVector<T> &TVector<T>::operator=(TVector<T> &&v) // move assignment operator
 {
     if (this != &v)
     {
-        delete[] array;    // deallocates memory used for array
-        capacity = v.capacity; // sets the capacity of the new array to the capacity of the input array
-        size = v.size;         // sets the size of the new array to the size of the input array
+        delete[] array;            // deallocates memory used for array
+        capacity = v.capacity;     // sets the capacity of the new array to the capacity of the input array
+        size = v.size;             // sets the size of the new array to the size of the input array
         array = new T[v.capacity]; // sets the new array to the input array
 
         for (int i = 0; i < size; i++)
@@ -149,7 +149,7 @@ TVectorIterator<T> TVector<T>::GetIteratorEnd() const
     TVectorIterator<T> itr;
     itr.index = size - 1;
     itr.vsize = size;
-    itr.ptr = array+(size-1);
+    itr.ptr = array + (size - 1);
 
     return itr; // returns an iterator to the last element of the array
 }
@@ -252,11 +252,25 @@ void TVector<T>::Print(std::ostream &os, char delim) const
 template <typename T>
 TVector<T> operator+(const TVector<T> &t1, const TVector<T> &t2)
 {
+    //concatenate two TVector objects
+    TVector<T> t3;
+    t3.capacity = t1.capacity + t2.capacity;
+    t3.size = t1.size + t2.size;
+    t3.array = new T[t3.capacity];
+
+    for (int i = 0; i < t1.size; i++)
+        t3.array[i] = std::move(t1.array[i]);
+
+    for (int i = 0; i < t2.size; i++)
+        t3.array[i + t1.size] = std::move(t2.array[i]);
+
+    return t3;
 }
 
 // Definition of class TVectorIterator ===========================//
 template <typename T>
-TVectorIterator<T>::TVectorIterator() { 
+TVectorIterator<T>::TVectorIterator()
+{
     ptr = nullptr;
     vsize = 0;
 }
@@ -264,7 +278,7 @@ TVectorIterator<T>::TVectorIterator() {
 template <typename T>
 bool TVectorIterator<T>::HasNext() const
 {
-    return  vsize > index + 1;
+    return vsize > index + 1;
 }
 
 template <typename T>
@@ -276,7 +290,8 @@ bool TVectorIterator<T>::HasPrevious() const
 template <typename T>
 TVectorIterator<T> TVectorIterator<T>::Next()
 {
-    if (HasNext()) {
+    if (HasNext())
+    {
         index++;
         ptr++;
     }
@@ -286,7 +301,8 @@ TVectorIterator<T> TVectorIterator<T>::Next()
 template <typename T>
 TVectorIterator<T> TVectorIterator<T>::Previous()
 {
-    if (HasPrevious()) {
+    if (HasPrevious())
+    {
         index--;
         ptr--;
     }

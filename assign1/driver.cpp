@@ -70,12 +70,12 @@ int main()
 
     // building another list
 
-    /* cout << "Building a new list\n";
+    cout << "Building a new list\n";
     TVector<int> v2;
     for (int i = 0; i < 10; i++)
         v2.InsertBack(i * 3 + 1);
 
-    PrintList(v2, "v2"); */
+    PrintList(v2, "v2");
 
     // Testing + overload:
     /* cout << "Testing operator+ overload\n";
