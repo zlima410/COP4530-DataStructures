@@ -252,19 +252,19 @@ void TVector<T>::Print(std::ostream &os, char delim) const
 template <typename T>
 TVector<T> operator+(const TVector<T> &t1, const TVector<T> &t2)
 {
-    //concatenate two TVector objects
-    TVector<T> t3;
-    t3.capacity = t1.capacity + t2.capacity;
-    t3.size = t1.size + t2.size;
-    t3.array = new T[t3.capacity];
+    TVector<T> result;
 
-    for (int i = 0; i < t1.size; i++)
-        t3.array[i] = std::move(t1.array[i]);
+    // Insert elements from the first vector
+    for (TVectorIterator<T> itr = t1.GetIterator(); itr.HasNext(); itr.Next()) {
+        result.InsertBack(itr.GetData());
+    }
 
-    for (int i = 0; i < t2.size; i++)
-        t3.array[i + t1.size] = std::move(t2.array[i]);
+    // Insert elements from the second vector
+    for (TVectorIterator<T> itr = t2.GetIterator(); itr.HasNext(); itr.Next()) {
+        result.InsertBack(itr.GetData());
+    }
 
-    return t3;
+    return result;
 }
 
 // Definition of class TVectorIterator ===========================//
