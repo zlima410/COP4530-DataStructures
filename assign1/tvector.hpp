@@ -254,14 +254,12 @@ TVector<T> operator+(const TVector<T> &t1, const TVector<T> &t2)
     TVector<T> result;
 
     // Insert elements from the first vector
-    for (TVectorIterator<T> itr = t1.GetIterator(); itr.HasNext(); itr.Next()) {
+    for (TVectorIterator<T> itr = t1.GetIterator(); itr.HasNext(); itr.Next()) 
         result.InsertBack(itr.GetData());
-    }
 
     // Insert elements from the second vector
-    for (TVectorIterator<T> itr = t2.GetIterator(); itr.HasNext(); itr.Next()) {
+    for (TVectorIterator<T> itr = t2.GetIterator(); itr.HasNext(); itr.Next())
         result.InsertBack(itr.GetData());
-    }
 
     return result;
 }
