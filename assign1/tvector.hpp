@@ -136,7 +136,7 @@ template <typename T>
 TVectorIterator<T> TVector<T>::GetIterator() const
 {
     TVectorIterator<T> itr;
-    itr.index = -1;
+    itr.index = 0;
     itr.vsize = size;
     itr.ptr = array;
 
@@ -174,39 +174,37 @@ void TVector<T>::SetCapacity(unsigned int c)
 template <typename T>
 TVectorIterator<T> TVector<T>::Insert(TVectorIterator<T> pos, const T &d)
 {
-    TVectorIterator<T> itr;
-    itr.index = pos.index;
+    int position = pos.index;
 
     if (size == 0)
     {
-        InsertBack(d);
-        itr.index = 0;
-        itr.vsize = size;
-        itr.ptr = array;
-        return itr;
+        pos.index = 0;
+        pos.vsize = size;
+        pos.ptr = array;
+        return pos;
     }
 
     if (size == capacity)
         SetCapacity(2 * capacity + 1); // doubles the capacity of the array if the array is full
 
     int i = size - 1;
-    for (i = size - 1; i > itr.index; i--)
+    for (i = size - 1; i >= position; i--)
         array[i + 1] = std::move(array[i]);
 
     array[i + 1] = d;
     size++;
 
-    itr.index = i;
-    itr.vsize = size;
-    itr.ptr = array + i;
+    pos.index = i;
+    pos.vsize = size;
+    pos.ptr = array + i;
 
-    return itr;
+    return pos;
 }
 
 template <typename T>
 TVectorIterator<T> TVector<T>::Remove(TVectorIterator<T> pos)
 {
-    int position = pos.index + 1;
+    int position = pos.index;
     int i = position;
 
     for (i = position; i < size - 1; i++)
@@ -266,7 +264,7 @@ TVectorIterator<T>::TVectorIterator() {
 template <typename T>
 bool TVectorIterator<T>::HasNext() const
 {
-    return  index < vsize - 1;
+    return  vsize > index + 1;
 }
 
 template <typename T>
@@ -278,7 +276,7 @@ bool TVectorIterator<T>::HasPrevious() const
 template <typename T>
 TVectorIterator<T> TVectorIterator<T>::Next()
 {
-    if (index <= vsize - 1) {
+    if (HasNext()) {
         index++;
         ptr++;
     }
@@ -288,7 +286,7 @@ TVectorIterator<T> TVectorIterator<T>::Next()
 template <typename T>
 TVectorIterator<T> TVectorIterator<T>::Previous()
 {
-    if (index >= 0) {
+    if (HasPrevious()) {
         index--;
         ptr--;
     }
