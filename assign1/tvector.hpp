@@ -191,12 +191,12 @@ TVectorIterator<T> TVector<T>::Insert(TVectorIterator<T> pos, const T &d)
     for (i = size - 1; i >= position; i--)
         array[i + 1] = std::move(array[i]);
 
-    array[i + 1] = d;
+    array[position] = d;
     size++;
 
-    pos.index = i;
+    pos.index = position;
     pos.vsize = size;
-    pos.ptr = array + i;
+    pos.ptr = array + position;
 
     return pos;
 }

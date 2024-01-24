@@ -45,15 +45,9 @@ int main()
 
     TVectorIterator<int> itr = v1.GetIterator();
     itr = v1.Insert(itr, 999);
-
-    PrintList(v1, "v1");
-
     itr.Next();
     itr.Next(); // advance two spots
-    itr = v1.Insert(itr, 888);
-
-    PrintList(v1, "v1");
-    
+    itr = v1.Insert(itr, 888);    
     itr.Next();
     itr.Next();
     itr.Next(); // advance three spots
