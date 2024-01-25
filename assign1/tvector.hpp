@@ -224,11 +224,12 @@ TVectorIterator<T> TVector<T>::Remove(TVectorIterator<T> pos1, TVectorIterator<T
     int position2 = pos2.index;
     int i = position1;
     int k = position2;
+    int distance = position2 - position1;
 
-    for (i = position1; i < position2; i++)
+    for (i = position1; i < size - distance; i++)
         array[i] = std::move(array[k++]);
 
-    size -= (position2 - position1);
+    size = i;
 
     TVectorIterator<T> pos;
     pos.index = i;

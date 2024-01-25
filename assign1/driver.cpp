@@ -87,7 +87,7 @@ int main()
     PrintList(v3, "v3");
     PrintList(v4, "v4");
 
-    /* cout << "Testing a call to the 2-param delete\n";
+    cout << "Testing a call to the 2-param delete\n";
     TVectorIterator<int> itr1 = v4.GetIterator();
     TVectorIterator<int> itr2 = v4.GetIterator();
 
@@ -100,5 +100,5 @@ int main()
 
     cout << "Calling:  v4.Remove(itr1, itr2);\n";
     v4.Remove(itr1, itr2);
-    PrintList(v4, "v4"); */
+    PrintList(v4, "v4");
 }
