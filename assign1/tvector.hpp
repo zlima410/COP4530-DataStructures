@@ -274,7 +274,7 @@ TVectorIterator<T>::TVectorIterator()
 template <typename T>
 bool TVectorIterator<T>::HasNext() const
 {
-    return vsize > index + 1;
+    return vsize >= index + 1;
 }
 
 template <typename T>
