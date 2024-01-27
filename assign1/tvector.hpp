@@ -35,7 +35,7 @@ TVector<T>::TVector(const TVector<T> &v) // copy constructor
     array = new T[v.capacity]; // creates a new copy of the input array
 
     for (int i = 0; i < size; i++)
-        array[i] = std::move(v.array[i]);
+        array[i] = std::move(v.array[i]);  // moves the elements of the input array to the new array
 }
 
 template <typename T>
@@ -49,7 +49,7 @@ TVector<T> &TVector<T>::operator=(const TVector<T> &v) // copy assignment operat
         array = new T[v.capacity]; // creates a new copy of the input array
 
         for (int i = 0; i < size; i++)
-            array[i] = std::move(v.array[i]);
+            array[i] = std::move(v.array[i]); // moves the elements of the input array to the new array
     }
     return *this;
 }
@@ -62,7 +62,7 @@ TVector<T>::TVector(TVector<T> &&v) // move constructor
     array = new T[v.capacity]; // sets the new array to the input array
 
     for (int i = 0; i < size; i++)
-        array[i] = std::move(v.array[i]);
+        array[i] = std::move(v.array[i]); // moves the elements of the input array to the new array
 }
 
 template <typename T>
@@ -76,7 +76,7 @@ TVector<T> &TVector<T>::operator=(TVector<T> &&v) // move assignment operator
         array = new T[v.capacity]; // sets the new array to the input array
 
         for (int i = 0; i < size; i++)
-            array[i] = std::move(v.array[i]);
+            array[i] = std::move(v.array[i]); // moves the elements of the input array to the new array
     }
     return *this;
 }
@@ -90,7 +90,7 @@ bool TVector<T>::IsEmpty() const // checks to see whether container is empty
 template <typename T>
 void TVector<T>::Clear() // clear out Vector, reset to empty
 {
-    size = 0;
+    size = 0; // sets the amount of elements of the array to 0
 }
 
 template <typename T>
