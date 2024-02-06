@@ -1,0 +1,70 @@
+Testing list with integer values ...
+pushing back 10 integer values
+size 10
+0 1 2 3 4 5 6 7 8 9
+pushing front 10 integer values
+size 20
+9 8 7 6 5 4 3 2 1 0 0 1 2 3 4 5 6 7 8 9
+pop front 5 integer values
+size 15
+4 3 2 1 0 0 1 2 3 4 5 6 7 8 9
+pop back 5 integer values
+size 10
+4 3 2 1 0 0 1 2 3 4
+removing 0
+size 8
+4 3 2 1 1 2 3 4
+removing first 4 elements
+size 4
+1 2 3 4
+reverse list
+size 4
+4 3 2 1
+clearing list
+all cleared
+testing other constructors
+5 5 5 5 5 5 5 5
+1 2 3 4 5 6 7 8 9 10 100 90 80 70 60 50
+testing init_list assignment operator
+4 8 15 16 23 42 99 100 200 211 353 400 501 503
+Removing odd elements of this list
+4 8 16 42 100 200 400
+testing comparison operators
+they are the same
+remove one element from l_t1
+they contain different values
+5 5 5 5 5 5 5 5 10 
+l_t2 is empty now
+Testing list with string values ...
+pushing back 10 string values
+size 10
+0 00 000 0000 00000 000000 0000000 00000000 000000000 0000000000
+pushing front 10 integer values
+size 20
+1111111111 111111111 11111111 1111111 111111 11111 1111 111 11 1 0 00 000 0000 00000 000000 0000000 00000000 000000000 0000000000
+pop front 5 string values
+size 15
+11111 1111 111 11 1 0 00 000 0000 00000 000000 0000000 00000000 000000000 0000000000
+pop back 5 string values
+size 10
+11111 1111 111 11 1 0 00 000 0000 00000
+removing 0
+size 9
+11111 1111 111 11 1 00 000 0000 00000
+removing first 4 elements
+size 5
+1 00 000 0000 00000
+reverse list
+size 5
+00000 0000 000 00 1
+clearing list
+all cleared
+testing other constructors
+2 2 2 2 2 2 2 2
+testing comparison operators
+they are the same
+remove one element from l2_t1
+they contain different values
+Harry Ron Hermione Dumbledore McGonagall Snape Luna Draco Neville Fred George Ginny
+Removing names longer than 5 letters
+Harry Ron Snape Luna Draco Fred Ginny
