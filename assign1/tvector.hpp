@@ -261,7 +261,7 @@ template <typename T>
 void TVector<T>::Print(std::ostream &os, char delim) const
 {
     if (size == 0)
-        cout << "Vector is empty" << endl; // if the vector is empty
+        std::cout << "Vector is empty" << std::endl; // if the vector is empty
         
     for (int i = 0; i < size; i++)
     {
