@@ -260,6 +260,9 @@ TVectorIterator<T> TVector<T>::Remove(TVectorIterator<T> pos1, TVectorIterator<T
 template <typename T>
 void TVector<T>::Print(std::ostream &os, char delim) const
 {
+    if (size == 0)
+        cout << "Vector is empty" << endl; // if the vector is empty
+        
     for (int i = 0; i < size; i++)
     {
         os << array[i] << delim; // prints the elements of the array
