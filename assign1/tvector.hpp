@@ -215,6 +215,11 @@ TVectorIterator<T> TVector<T>::Insert(TVectorIterator<T> pos, const T &d)
 template <typename T>
 TVectorIterator<T> TVector<T>::Remove(TVectorIterator<T> pos)
 {
+    if (size == 0 || pos.index >= size || pos.index < 0) { // if the vector is empty or
+        TVectorIterator<T> itr;                            // the index of the iterator is greater
+        return itr;                                        // than the size of the array or less than 0
+    }                                                      // then return the iterator
+    
     int position = pos.index; // sets the position of the iterator to the index of the iterator
     int i = position;         // sets i to the position of the iterator
 
