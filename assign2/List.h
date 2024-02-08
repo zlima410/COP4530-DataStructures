@@ -45,12 +45,15 @@ namespace cop4530 {
     
                 const_iterator & operator--()
                 {
-                    // TO BE FILLED
+                    current = current->prev;
+                    return *this;
                 }
     
                 const_iterator operator--(int)
                 {
-                    // TO BE FILLED
+                    const_iterator old = *this;
+                    -- (*this);
+                    return old;
                 }
     
                 // comparison operators
@@ -112,12 +115,15 @@ namespace cop4530 {
     
                 iterator & operator--()
                 {
-                    // TO BE FILLED
+                    this->current = this->current->prev;
+                    return *this;
                 }
     
                 iterator operator--(int)
                 {
-                    // TO BE FILLED
+                    iterator old = *this;
+                    --(*this);
+                    return old;
                 }
     
              protected:
