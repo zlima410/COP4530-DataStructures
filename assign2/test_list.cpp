@@ -108,6 +108,15 @@ int main() {
     }
     cout << endl;
 
+    iList.clear();
+    iList = {2, 4, 6, 8, 10, 12, 14, 16};
+    itr = iList.begin();
+    cout << *itr++;
+    for (; itr != iList.end(); ++itr) {
+        cout << " " << *itr;
+    }
+    cout << endl;
+
 	/* cout << "removing first 4 elements" << endl;
 	itr = l1.begin();
 	auto itr_t = itr;

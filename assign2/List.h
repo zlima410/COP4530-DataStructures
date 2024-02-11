@@ -222,7 +222,9 @@ namespace cop4530
         // sets list to the elements of the initializer_list
         List &operator=(std::initializer_list<T> iList)
         {
-            // TO BE FILLED
+            List copy = iList;
+            std::swap(*this, copy);
+            return *this;
         }
 
         // member functions
