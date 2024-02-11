@@ -287,13 +287,20 @@ namespace cop4530
         template <typename PREDICATE>
         void remove_if(PREDICATE pred)
         {
-            // TO BE FILLED
+            for (auto I = begin(); I != end();)
+            {
+                if (pred(*I))
+                    I = erase(I);
+                else
+                    I++;
+            }
         }
 
         // print out all elements. ofc is deliminitor
         void print(std::ostream &os, char ofc = ' ') const
         {
-            // TO BE FILLED
+            for (auto I = begin(); I != end(); I++)
+                os << *I << ofc;
         }
 
         iterator begin() { return iterator(head->next); } // iterator to first element
@@ -381,7 +388,8 @@ namespace cop4530
     template <typename T>
     std::ostream &operator<<(std::ostream &os, const List<T> &l)
     {
-        // TO BE FILLED
+        l.print(os);
+        return os;
     }
 
 } // end of namespace 4530

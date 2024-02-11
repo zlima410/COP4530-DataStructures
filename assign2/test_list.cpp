@@ -13,7 +13,9 @@ public:
 
 class LongerThanFive {
 public:
-    // TO BE FILLED
+    bool operator()(const string & s) const {
+        return s.length() > 5;
+    }
 };
 
 int main() {
@@ -288,13 +290,12 @@ int main() {
 	} else {
 		cout << "they contain different values" << endl;
 	}
-
+    */
 	List<string> sList {"Harry", "Ron", "Hermione", "Dumbledore", "McGonagall", "Snape", 
 				"Luna", "Draco", "Neville", "Fred", "George", "Ginny"};
 
-        cout << sList << endl;
+    cout << sList << endl;
 	cout << "Removing names longer than 5 letters" << endl;
-        sList.remove_if(LongerThanFive());
-        cout << sList << endl;
- */
+    sList.remove_if(LongerThanFive());
+    cout << sList << endl;
 }
