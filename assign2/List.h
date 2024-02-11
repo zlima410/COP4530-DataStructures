@@ -243,7 +243,19 @@ namespace cop4530
         // reverse the order of the elements
         void reverse()
         {
-            // TO BE FILLED
+            Node *oldHead = head;
+
+            while (oldHead != nullptr)
+            {
+                Node *temp = oldHead->next;
+                oldHead->next = oldHead->prev;
+                oldHead->prev = temp;
+                if (temp == nullptr) {
+                    tail = head;
+                    head = oldHead;
+                }
+                oldHead = temp;
+            }
         }
 
         T &front() { return *begin(); } // reference to the first element

@@ -84,13 +84,6 @@ int main() {
 	cout << "size " << l1.size() << endl;
 	cout << l1 << endl;
 
-    itr = l1.begin();
-    cout << *itr++;
-    for (; itr != l1.end(); ++itr) {
-        cout << " " << *itr;
-    }
-    cout << endl;
-
 	List<int> l_t1(8, 5);
     itr = l_t1.begin();
 	cout << *itr++;
@@ -108,15 +101,7 @@ int main() {
 	cout << endl;
 
 	List<int> iList {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100, 90, 80, 70, 60, 50};
-    itr = iList.begin();
-    cout << *itr++;
-    for (; itr != iList.end(); ++itr) {
-        cout << " " << *itr;
-    }
-    cout << endl;
-
-    iList.clear();
-    iList = {2, 4, 6, 8, 10, 12, 14, 16};
+    iList.reverse();
     itr = iList.begin();
     cout << *itr++;
     for (; itr != iList.end(); ++itr) {
