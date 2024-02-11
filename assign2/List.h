@@ -261,7 +261,13 @@ namespace cop4530
         // remove all elements with value = val
         void remove(const T &val)
         {
-            // TO BE FILLED
+            for (auto I = begin(); I != end();)
+            {
+                if (*I == val)
+                    I = erase(I);
+                else
+                    I++;
+            }
         }
 
         // remove all elements for which Predicate pred

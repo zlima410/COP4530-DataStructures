@@ -84,6 +84,13 @@ int main() {
 	cout << "size " << l1.size() << endl;
 	cout << l1 << endl;
 
+    itr = l1.begin();
+    cout << *itr++;
+    for (; itr != l1.end(); ++itr) {
+        cout << " " << *itr;
+    }
+    cout << endl;
+
 	List<int> l_t1(8, 5);
     itr = l_t1.begin();
 	cout << *itr++;
