@@ -92,6 +92,22 @@ int main() {
 	}
 	cout << endl;
 
+    List<int> l_t2(l_t1.begin(), l_t1.end());
+    itr = l_t2.begin();
+	cout << *itr++;
+	for (; itr != l_t2.end(); ++itr) {
+		cout << " " << *itr;
+	}
+	cout << endl;
+
+	List<int> iList {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100, 90, 80, 70, 60, 50};
+    itr = iList.begin();
+    cout << *itr++;
+    for (; itr != iList.end(); ++itr) {
+        cout << " " << *itr;
+    }
+    cout << endl;
+
 	/* cout << "removing first 4 elements" << endl;
 	itr = l1.begin();
 	auto itr_t = itr;

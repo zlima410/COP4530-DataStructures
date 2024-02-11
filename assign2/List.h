@@ -176,13 +176,17 @@ namespace cop4530
         // constructs with elements [start, end)
         List(const_iterator start, const_iterator end)
         {
-            // TO BE FILLED
+            init();
+            for (auto I = start; I != end; I++)
+                push_back(*I);
         }
 
         // constructs with a copy of each of the elements in the initalizer_list
         List(std::initializer_list<T> iList)
         {
-            // TO BE FILLED
+            init();
+            for (auto &x : iList)
+                push_back(x);
         }
 
         // destructor
