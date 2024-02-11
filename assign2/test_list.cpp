@@ -84,7 +84,15 @@ int main() {
 	cout << "size " << l1.size() << endl;
 	cout << l1 << endl;
 
-	cout << "removing first 4 elements" << endl;
+	List<int> l_t1(8, 5);
+    itr = l_t1.begin();
+	cout << *itr++;
+	for (; itr != l_t1.end(); ++itr) {
+		cout << " " << *itr;
+	}
+	cout << endl;
+
+	/* cout << "removing first 4 elements" << endl;
 	itr = l1.begin();
 	auto itr_t = itr;
 	for (int i = 0; i < 4; ++i)
@@ -154,7 +162,7 @@ int main() {
 		cout << "l_t2 is empty now" << endl;
 	}
 
-	/* testing string list */
+	/* testing string list 
 	cout << "Testing list with string values ..." << endl;
 	cout << "pushing back " << num << " string values" << endl;
 
@@ -271,5 +279,5 @@ int main() {
 	cout << "Removing names longer than 5 letters" << endl;
         sList.remove_if(LongerThanFive());
         cout << sList << endl;
-
+ */
 }
