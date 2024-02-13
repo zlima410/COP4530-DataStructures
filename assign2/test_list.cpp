@@ -8,7 +8,9 @@ using namespace cop4530;
 // Function object types, for use with remove_if()
 class isOdd {
 public:
-    // TO BE FILLED
+    bool operator()(int x) const {
+        return x % 2 != 0;
+    }
 };
 
 class LongerThanFive {
@@ -18,284 +20,298 @@ public:
     }
 };
 
-int main() {
-	List<int> l1;
-	List<string> l2;
-	const int num = 10;
+int main()
+{
+    List<int> l1;
+    List<string> l2;
+    const int num = 10;
 
-	cout << "Testing list with integer values ..." << endl;
-	cout << "pushing back " << num << " integer values" << endl;
+    cout << "Testing list with integer values ..." << endl;
+    cout << "pushing back " << num << " integer values" << endl;
 
-	for (int i = 0; i < num; ++i) {
-		l1.push_back(i);
-	}
-	cout << "size " << l1.size() << endl;
+    for (int i = 0; i < num; ++i)
+    {
+        l1.push_back(i);
+    }
+    cout << "size " << l1.size() << endl;
 
-	auto itr = l1.begin();
-	cout << *itr++;
-	for (; itr != l1.end(); ++itr) {
-		cout << " " << *itr;
-	}
-	cout << endl;
-
-	cout << "pushing front " << num << " integer values" << endl;
-
-	for (int i = 0; i < num; ++i) {
-		l1.push_front(i);
-	}
-
-	cout << "size " << l1.size() << endl;
-
-	itr = l1.begin();
-	cout << *itr++;
-	for (; itr != l1.end(); ++itr) {
-		cout << " " << *itr;
-	}
-	cout << endl;
-
-	cout << "pop front " << num/2 << " integer values" << endl;
-	for (int i = 0; i < num/2; ++i) {
-		l1.pop_front();
-	}
-
-	cout << "size " << l1.size() << endl;
-
-	itr = l1.begin();
-	cout << *itr++;
-	for (; itr != l1.end(); ++itr) {
-		cout << " " << *itr;
-	}
-	cout << endl;
-
-	cout << "pop back " << num/2 << " integer values" << endl;
-	for (int i = 0; i < num/2; ++i) {
-		l1.pop_back();
-	}
-
-	cout << "size " << l1.size() << endl;
-
-	itr = l1.begin();
-	cout << *itr++;
-	for (; itr != l1.end(); ++itr) {
-		cout << " " << *itr;
-	}
-	cout << endl;
-
-	cout << "removing 0" << endl;
-	l1.remove(0);
-	cout << "size " << l1.size() << endl;
-	cout << l1 << endl;
-
-	List<int> l_t1(8, 5);
-    itr = l_t1.begin();
-	cout << *itr++;
-	for (; itr != l_t1.end(); ++itr) {
-		cout << " " << *itr;
-	}
-	cout << endl;
-
-    List<int> l_t2(l_t1.begin(), l_t1.end());
-    itr = l_t2.begin();
-	cout << *itr++;
-	for (; itr != l_t2.end(); ++itr) {
-		cout << " " << *itr;
-	}
-	cout << endl;
-
-	List<int> iList {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100, 90, 80, 70, 60, 50};
-    iList.reverse();
-    itr = iList.begin();
+    auto itr = l1.begin();
     cout << *itr++;
-    for (; itr != iList.end(); ++itr) {
+    for (; itr != l1.end(); ++itr)
+    {
         cout << " " << *itr;
     }
     cout << endl;
 
-	/* cout << "removing first 4 elements" << endl;
-	itr = l1.begin();
-	auto itr_t = itr;
-	for (int i = 0; i < 4; ++i)
-		++itr_t;
-	l1.erase(itr, itr_t);
-	cout << "size " << l1.size() << endl;
-	cout << l1 << endl;
+    cout << "pushing front " << num << " integer values" << endl;
 
-	cout << "reverse list" << endl;
-	l1.reverse();
-	cout << "size " << l1.size() << endl;
-	cout << l1 << endl;
+    for (int i = 0; i < num; ++i)
+    {
+        l1.push_front(i);
+    }
 
-	cout << "clearing list" << endl;
-	l1.clear();
+    cout << "size " << l1.size() << endl;
 
-	if (l1.empty()) {
-		cout << "all cleared" << endl;
-	} else {
-		cout << "wrong with clear() function" << endl;
-	}
+    itr = l1.begin();
+    cout << *itr++;
+    for (; itr != l1.end(); ++itr)
+    {
+        cout << " " << *itr;
+    }
+    cout << endl;
 
-	cout << "testing other constructors" << endl;
-	List<int> l_t1(8, 5);
-	List<int> l_t2(l_t1.begin(), l_t1.end());
-	List<int> iList {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100, 90, 80, 70, 60, 50};
+    cout << "pop front " << num / 2 << " integer values" << endl;
+    for (int i = 0; i < num / 2; ++i)
+    {
+        l1.pop_front();
+    }
 
-	cout << l_t2 << endl;
-	cout << iList << endl;
-	cout << "testing init_list assignment operator" << endl;
-	iList = {4, 8, 15, 16, 23, 42, 99, 100, 200, 211, 353, 400, 501, 503};
-	cout << iList << endl;
-        cout << "Removing odd elements of this list" << endl;
-        iList.remove_if(isOdd());
-	cout << iList << endl;
+    cout << "size " << l1.size() << endl;
 
-	cout << "testing comparison operators" << endl;
-	if (l_t1 == l_t2) {
-		cout << "they are the same" << endl;
-	} else {
-		cout << "wrong" << endl;
-	}
+    itr = l1.begin();
+    cout << *itr++;
+    for (; itr != l1.end(); ++itr)
+    {
+        cout << " " << *itr;
+    }
+    cout << endl;
 
-	cout << "remove one element from l_t1" << endl;
-	l_t1.pop_back();
-	if (l_t1 == l_t2) {
-		cout << "wrong" << endl;
-	} else {
-		cout << "they contain different values" << endl;
-	}
+    cout << "pop back " << num / 2 << " integer values" << endl;
+    for (int i = 0; i < num / 2; ++i)
+    {
+        l1.pop_back();
+    }
 
-	l_t2.push_back(10);
-	// testing move
-	List<int> l_t3 = std::move(l_t2);
-	for (auto & x : l_t3) {
-		cout << x << " ";
-	}
-	cout << endl;
+    cout << "size " << l1.size() << endl;
 
-	// check if l_t2 is empty now
-	// NOTE that we should NOT access l_t2
-	// this is just for the purpose of testing
-	// the implementation of move constructor
-	if (!l_t2.empty()) {
-		cout << "wrong" << endl;
-	} else {
-		cout << "l_t2 is empty now" << endl;
-	}
+    itr = l1.begin();
+    cout << *itr++;
+    for (; itr != l1.end(); ++itr)
+    {
+        cout << " " << *itr;
+    }
+    cout << endl;
 
-	/* testing string list 
-	cout << "Testing list with string values ..." << endl;
-	cout << "pushing back " << num << " string values" << endl;
+    cout << "removing 0" << endl;
+    l1.remove(0);
+    cout << "size " << l1.size() << endl;
+    cout << l1 << endl;
 
-	for (int i = 1; i <= num; ++i) {
-		string str(i, '0');
-		l2.push_back(str);
-	}
-	cout << "size " << l2.size() << endl;
+    cout << "removing first 4 elements" << endl;
+    itr = l1.begin();
+    auto itr_t = itr;
+    for (int i = 0; i < 4; ++i)
+        ++itr_t;
+    l1.erase(itr, itr_t);
+    cout << "size " << l1.size() << endl;
+    cout << l1 << endl;
 
-	auto itr2 = l2.begin();
-	cout << *itr2++;
-	for (; itr2 != l2.end(); ++itr2) {
-		cout << " " << *itr2;
-	}
-	cout << endl;
+    cout << "reverse list" << endl;
+    l1.reverse();
+    cout << "size " << l1.size() << endl;
+    cout << l1 << endl;
 
-	cout << "pushing front " << num << " integer values" << endl;
+    cout << "clearing list" << endl;
+    l1.clear();
 
-	for (int i = 1; i <= num; ++i) {
-		string str(i, '1');
-		l2.push_front(str);
-	}
+    if (l1.empty())
+    {
+        cout << "all cleared" << endl;
+    }
+    else
+    {
+        cout << "wrong with clear() function" << endl;
+    }
 
-	cout << "size " << l2.size() << endl;
+    cout << "testing other constructors" << endl;
+    List<int> l_t1(8, 5);
+    List<int> l_t2(l_t1.begin(), l_t1.end());
+    List<int> iList{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100, 90, 80, 70, 60, 50};
 
-	itr2 = l2.begin();
-	cout << *itr2++;
-	for (; itr2 != l2.end(); ++itr2) {
-		cout << " " << *itr2;
-	}
-	cout << endl;
+    cout << l_t2 << endl;
+    cout << iList << endl;
+    cout << "testing init_list assignment operator" << endl;
+    iList = {4, 8, 15, 16, 23, 42, 99, 100, 200, 211, 353, 400, 501, 503};
+    cout << iList << endl;
+    cout << "Removing odd elements of this list" << endl;
+    iList.remove_if(isOdd());
+    cout << iList << endl;
 
-	cout << "pop front " << num/2 << " string values" << endl;
-	for (int i = 0; i < num/2; ++i) {
-		l2.pop_front();
-	}
+    cout << "testing comparison operators" << endl;
+    if (l_t1 == l_t2)
+    {
+        cout << "they are the same" << endl;
+    }
+    else
+    {
+        cout << "wrong" << endl;
+    }
 
-	cout << "size " << l2.size() << endl;
+    cout << "remove one element from l_t1" << endl;
+    l_t1.pop_back();
+    if (l_t1 == l_t2)
+    {
+        cout << "wrong" << endl;
+    }
+    else
+    {
+        cout << "they contain different values" << endl;
+    }
 
-	itr2 = l2.begin();
-	cout << *itr2++;
-	for (; itr2 != l2.end(); ++itr2) {
-		cout << " " << *itr2;
-	}
-	cout << endl;
+    l_t2.push_back(10);
+    // testing move
+    List<int> l_t3 = std::move(l_t2);
+    for (auto &x : l_t3)
+    {
+        cout << x << " ";
+    }
+    cout << endl;
 
-	cout << "pop back " << num/2 << " string values" << endl;
-	for (int i = 0; i < num/2; ++i) {
-		l2.pop_back();
-	}
+    // check if l_t2 is empty now
+    // NOTE that we should NOT access l_t2
+    // this is just for the purpose of testing
+    // the implementation of move constructor
+    if (!l_t2.empty())
+    {
+        cout << "wrong" << endl;
+    }
+    else
+    {
+        cout << "l_t2 is empty now" << endl;
+    }
 
-	cout << "size " << l2.size() << endl;
+    /* testing string list */
+    cout << "Testing list with string values ..." << endl;
+    cout << "pushing back " << num << " string values" << endl;
 
-	itr2 = l2.begin();
-	cout << *itr2++;
-	for (; itr2 != l2.end(); ++itr2) {
-		cout << " " << *itr2;
-	}
-	cout << endl;
+    for (int i = 1; i <= num; ++i)
+    {
+        string str(i, '0');
+        l2.push_back(str);
+    }
+    cout << "size " << l2.size() << endl;
 
-	cout << "removing 0" << endl;
-	l2.remove("0");
-	cout << "size " << l2.size() << endl;
-	cout << l2 << endl;
+    auto itr2 = l2.begin();
+    cout << *itr2++;
+    for (; itr2 != l2.end(); ++itr2)
+    {
+        cout << " " << *itr2;
+    }
+    cout << endl;
 
-	cout << "removing first 4 elements" << endl;
-	itr2 = l2.begin();
-	auto itr2_t = itr2;
-	for (int i = 0; i < 4; ++i)
-		++itr2_t;
-	l2.erase(itr2, itr2_t);
-	cout << "size " << l2.size() << endl;
-	cout << l2 << endl;
+    cout << "pushing front " << num << " integer values" << endl;
 
-	cout << "reverse list" << endl;
-	l2.reverse();
-	cout << "size " << l2.size() << endl;
-	cout << l2 << endl;
+    for (int i = 1; i <= num; ++i)
+    {
+        string str(i, '1');
+        l2.push_front(str);
+    }
 
-	cout << "clearing list" << endl;
-	l2.clear();
+    cout << "size " << l2.size() << endl;
 
-	if (l2.empty()) {
-		cout << "all cleared" << endl;
-	} else {
-		cout << "wrong with clear() function" << endl;
-	}
+    itr2 = l2.begin();
+    cout << *itr2++;
+    for (; itr2 != l2.end(); ++itr2)
+    {
+        cout << " " << *itr2;
+    }
+    cout << endl;
 
-	cout << "testing other constructors" << endl;
-	List<string> l2_t1(8, "2");
-	List<string> l2_t2(l2_t1.begin(), l2_t1.end());
+    cout << "pop front " << num / 2 << " string values" << endl;
+    for (int i = 0; i < num / 2; ++i)
+    {
+        l2.pop_front();
+    }
 
-	cout << l2_t2 << endl;
+    cout << "size " << l2.size() << endl;
 
-	cout << "testing comparison operators" << endl;
-	if (l2_t1 == l2_t2) {
-		cout << "they are the same" << endl;
-	} else {
-		cout << "wrong" << endl;
-	}
+    itr2 = l2.begin();
+    cout << *itr2++;
+    for (; itr2 != l2.end(); ++itr2)
+    {
+        cout << " " << *itr2;
+    }
+    cout << endl;
 
-	cout << "remove one element from l2_t1" << endl;
-	l2_t1.pop_back();
-	if (l2_t1 == l2_t2) {
-		cout << "wronng" << endl;
-	} else {
-		cout << "they contain different values" << endl;
-	}
-    */
-	List<string> sList {"Harry", "Ron", "Hermione", "Dumbledore", "McGonagall", "Snape", 
-				"Luna", "Draco", "Neville", "Fred", "George", "Ginny"};
+    cout << "pop back " << num / 2 << " string values" << endl;
+    for (int i = 0; i < num / 2; ++i)
+    {
+        l2.pop_back();
+    }
+
+    cout << "size " << l2.size() << endl;
+
+    itr2 = l2.begin();
+    cout << *itr2++;
+    for (; itr2 != l2.end(); ++itr2)
+    {
+        cout << " " << *itr2;
+    }
+    cout << endl;
+
+    cout << "removing 0" << endl;
+    l2.remove("0");
+    cout << "size " << l2.size() << endl;
+    cout << l2 << endl;
+
+    cout << "removing first 4 elements" << endl;
+    itr2 = l2.begin();
+    auto itr2_t = itr2;
+    for (int i = 0; i < 4; ++i)
+        ++itr2_t;
+    l2.erase(itr2, itr2_t);
+    cout << "size " << l2.size() << endl;
+    cout << l2 << endl;
+
+    cout << "reverse list" << endl;
+    l2.reverse();
+    cout << "size " << l2.size() << endl;
+    cout << l2 << endl;
+
+    cout << "clearing list" << endl;
+    l2.clear();
+
+    if (l2.empty())
+    {
+        cout << "all cleared" << endl;
+    }
+    else
+    {
+        cout << "wrong with clear() function" << endl;
+    }
+
+    cout << "testing other constructors" << endl;
+    List<string> l2_t1(8, "2");
+    List<string> l2_t2(l2_t1.begin(), l2_t1.end());
+
+    cout << l2_t2 << endl;
+
+    cout << "testing comparison operators" << endl;
+    if (l2_t1 == l2_t2)
+    {
+        cout << "they are the same" << endl;
+    }
+    else
+    {
+        cout << "wrong" << endl;
+    }
+
+    cout << "remove one element from l2_t1" << endl;
+    l2_t1.pop_back();
+    if (l2_t1 == l2_t2)
+    {
+        cout << "wronng" << endl;
+    }
+    else
+    {
+        cout << "they contain different values" << endl;
+    }
+
+    List<string> sList{"Harry", "Ron", "Hermione", "Dumbledore", "McGonagall", "Snape",
+                       "Luna", "Draco", "Neville", "Fred", "George", "Ginny"};
 
     cout << sList << endl;
-	cout << "Removing names longer than 5 letters" << endl;
+    cout << "Removing names longer than 5 letters" << endl;
     sList.remove_if(LongerThanFive());
     cout << sList << endl;
 }
