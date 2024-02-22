@@ -9,14 +9,14 @@ using namespace cop4530;
 class isOdd {
 public:
     bool operator()(int x) const {
-        return x % 2 != 0;
+        return x % 2 != 0; // true if x is odd
     }
 };
 
 class LongerThanFive {
 public:
     bool operator()(const string & s) const {
-        return s.length() > 5;
+        return s.length() > 5; // true if s has more than 5 characters
     }
 };
 

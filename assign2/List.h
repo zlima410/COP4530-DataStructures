@@ -50,12 +50,14 @@ namespace cop4530
 
             const_iterator &operator--()
             {
+                // move to the previous node
                 current = current->prev;
                 return *this;
             }
 
             const_iterator operator--(int)
             {
+                // move to the previous node
                 const_iterator old = *this;
                 --(*this);
                 return old;
@@ -122,12 +124,14 @@ namespace cop4530
 
             iterator &operator--()
             {
+                // move to the previous node
                 this->current = this->current->prev;
                 return *this;
             }
 
             iterator operator--(int)
             {
+                // move to the previous node
                 iterator old = *this;
                 --(*this);
                 return old;
@@ -168,24 +172,24 @@ namespace cop4530
         // num elements with value of val
         explicit List(int num, const T &val = T{})
         {
-            init();
-            for (int i = 0; i < num; i++)
+            init();                       // initialize the list
+            for (int i = 0; i < num; i++) // insert num elements with value of val
                 push_back(val);
         }
 
         // constructs with elements [start, end)
         List(const_iterator start, const_iterator end)
         {
-            init();
-            for (auto I = start; I != end; I++)
+            init();                             // initialize the list
+            for (auto I = start; I != end; I++) // insert elements from start to end into the list
                 push_back(*I);
         }
 
         // constructs with a copy of each of the elements in the initalizer_list
         List(std::initializer_list<T> iList)
         {
-            init();
-            for (auto &x : iList)
+            init();               // initialize the list
+            for (auto &x : iList) // insert elements from the initializer_list into the list
                 push_back(x);
         }
 
@@ -222,8 +226,8 @@ namespace cop4530
         // sets list to the elements of the initializer_list
         List &operator=(std::initializer_list<T> iList)
         {
-            List copy = iList;
-            std::swap(*this, copy);
+            List copy = iList;      // create a list with the elements of the initializer_list
+            std::swap(*this, copy); // swap the contents of the list with the copy
             return *this;
         }
 
@@ -243,18 +247,18 @@ namespace cop4530
         // reverse the order of the elements
         void reverse()
         {
-            Node *oldHead = head;
+            Node *oldHead = head; // swap the head and tail pointers
 
-            while (oldHead != nullptr)
+            while (oldHead != nullptr) // iterate through the list
             {
-                Node *temp = oldHead->next;
-                oldHead->next = oldHead->prev;
-                oldHead->prev = temp;
+                Node *temp = oldHead->next;    // create a temp node that stores the old head's next pointer
+                oldHead->next = oldHead->prev; // swap the old head's next and prev pointers
+                oldHead->prev = temp;          // set the old head's prev pointer to the temp node
                 if (temp == nullptr) {
-                    tail = head;
-                    head = oldHead;
+                    tail = head;    // set the tail to the old head
+                    head = oldHead; // set the head to the temp node
                 }
-                oldHead = temp;
+                oldHead = temp; // move to the next node
             }
         }
 
@@ -273,12 +277,12 @@ namespace cop4530
         // remove all elements with value = val
         void remove(const T &val)
         {
-            for (auto I = begin(); I != end();)
+            for (auto I = begin(); I != end();) // iterate through the list
             {
-                if (*I == val)
-                    I = erase(I);
+                if (*I == val)      // if the element is equal to val
+                    I = erase(I);   // remove the element
                 else
-                    I++;
+                    I++; // move to the next element
             }
         }
 
@@ -287,20 +291,20 @@ namespace cop4530
         template <typename PREDICATE>
         void remove_if(PREDICATE pred)
         {
-            for (auto I = begin(); I != end();)
+            for (auto I = begin(); I != end();) // iterate through the list
             {
-                if (pred(*I))
-                    I = erase(I);
+                if (pred(*I))       // if the element satisfies the predicate
+                    I = erase(I);   // remove the element
                 else
-                    I++;
+                    I++;        // move to the next element
             }
         }
 
         // print out all elements. ofc is deliminitor
         void print(std::ostream &os, char ofc = ' ') const
         {
-            for (auto I = begin(); I != end(); I++)
-                os << *I << ofc;
+            for (auto I = begin(); I != end(); I++) // iterate through the list
+                os << *I << ofc;                    // print the element
         }
 
         iterator begin() { return iterator(head->next); } // iterator to first element
@@ -388,8 +392,8 @@ namespace cop4530
     template <typename T>
     std::ostream &operator<<(std::ostream &os, const List<T> &l)
     {
-        l.print(os);
-        return os;
+        l.print(os); // print the list
+        return os;   // return the output stream
     }
 
 } // end of namespace 4530
