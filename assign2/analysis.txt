@@ -1,0 +1,8 @@
+reverse(): The time complexity for the reverse function is O(n). 
+           This is because the while loop runs once for each node in the list.
+           Inside the while loop, the operations have a time complexity of O(1).
+
+remove_if(): The time complexity for the remove_if function is O(n). 
+             This is because the predicate functions and the erase 
+             function have a time complexity of O(1).
+             
