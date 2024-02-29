@@ -1,5 +1,6 @@
 #ifndef BET_H
 #define BET_H
+#include <iostream>
 #include <stack>
 #include <string>
 using namespace std;
@@ -21,13 +22,13 @@ class BET {
 
     public:
         BET();                      // default constructor
-        BET(const string postfix);  // tree constructor
+        BET(const string& postfix);  // tree constructor
         BET(const BET&);            // copy constructor
         ~BET();                     // destructor
 
         // mutators
         const BET &operator=(const BET &);  // assignment operator overload
-        bool buildFromPostFix(const string postfix);    // test if the tree built successfully
+        bool buildFromPostFix(const string& postfix);    // test if the tree built successfully
 
         // accessors
         size_t size();     // number of nodes in the tree
