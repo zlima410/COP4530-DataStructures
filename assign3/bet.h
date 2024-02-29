@@ -13,8 +13,10 @@ class BET {
 
             // constructor
             BinaryNode() : left{nullptr}, right{nullptr}{}
-            BinaryNode(const string &elm, BinaryNode *ll, BinaryNode *rr)
-                : element{elm}, left{ll}, right{rr}{}
+            BinaryNode(const string &theElement, BinaryNode *lt, BinaryNode *rt)
+                : element{theElement}, left{lt}, right{rt}{}
+            BinaryNode(string && theElement, BinaryNode *lt, BinaryNode *rt)
+                : element{theElement}, left{lt}, right{rt}{}
         };
 
     public:
@@ -28,9 +30,26 @@ class BET {
         bool buildFromPostFix(const string postfix);    // test if the tree built successfully
 
         // accessors
-        int size();     // number of nodes in the tree
-        int leaf_nodes; // number of leaf nodes in the tree
+        size_t size();     // number of nodes in the tree
+        size_t leaf_nodes(); // number of leaf nodes in the tree
         bool empty();   // test if the tree is empty
+
+    private:
+        stack<BinaryNode*> betStack;    // stack used by the binary expression tree
+        BinaryNode *root;               // bet's root node
+
+        void ClearStack();
+        bool isOperator(const string &s);
+        bool isOperand(const string &s);
+
+        // recursive functions
+        void printInfixExpression(BinaryNode *n);   // print the infix expression
+        void makeEmpty(BinaryNode* &t);             // delete all nodes in the subtree and call the destructor
+        void printPostfixExpression(BinaryNode *n); // print the postfix expression
+
+        BinaryNode *clone(BinaryNode *t) const; // clone all nodes and call the assignment operator overload
+        size_t size(BinaryNode *t);             // number of nodes in the subtree of t
+        size_t leaf_nodes(BinaryNode *t);       // number of leaf nodes in the subtree t
 };
 
 #endif
