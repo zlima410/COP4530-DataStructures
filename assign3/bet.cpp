@@ -38,3 +38,28 @@ const BET &BET::operator=(const BET &rhs)   // assignment operator overload
     }
     return *this;
 }
+
+bool BET::buildFromPostFix(const string& postfix) {
+    if (!empty) // make sure a new tree is being made
+    {
+        makeEmpty(root);
+        ClearStack();
+    }
+
+    bool ret = true;
+    string post = postfix, token;
+
+    for (string::iterator itr = post.begin(); itr != post.end(); ++itr) {
+        token += *itr;  // add the current character to the token string
+
+        if (*itr == ' ' || itr == (post.end() - 1)) // create the tree if the character is the end or a space
+        {
+            if (*itr == ' ')    // if the last character is a space remove it
+                token.pop_back();
+            if (isOperand(token)) {
+                BinaryNode *n = new BinaryNode(token, nullptr, nullptr);    // create a new node with the operand
+                betStack.push(n);                                           // push new node into the stack
+            }
+        }
+    }
+}

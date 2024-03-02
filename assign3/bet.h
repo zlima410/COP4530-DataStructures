@@ -22,18 +22,18 @@ class BET {
 
     public:
         BET();                      // default constructor
-        BET(const string& postfix);  // tree constructor
+        BET(const string& postfix); // tree constructor
         BET(const BET&);            // copy constructor
         ~BET();                     // destructor
 
         // mutators
-        const BET &operator=(const BET &);  // assignment operator overload
+        const BET &operator=(const BET &);               // assignment operator overload
         bool buildFromPostFix(const string& postfix);    // test if the tree built successfully
 
         // accessors
-        size_t size();     // number of nodes in the tree
+        size_t size();       // number of nodes in the tree
         size_t leaf_nodes(); // number of leaf nodes in the tree
-        bool empty();   // test if the tree is empty
+        bool empty();        // test if the tree is empty
 
     private:
         stack<BinaryNode*> betStack;    // stack used by the binary expression tree
