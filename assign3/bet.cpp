@@ -124,3 +124,20 @@ void BET::printPostfixExpression(BinaryNode *n) {
     printPostfixExpression(root);
     cout << endl;
 }
+
+size_t BET::size() {
+    return size(root);
+}
+
+size_t BET::leaf_nodes() {
+    return leaf_nodes(root);
+}
+
+bool BET::empty() {
+    return {root == nullptr};
+}
+
+void BET::ClearStack() {
+    while (!betStack.empty())
+        betStack.pop();
+}
