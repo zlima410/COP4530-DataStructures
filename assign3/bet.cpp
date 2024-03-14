@@ -66,12 +66,30 @@ bool BET::buildFromPostFix(const string &postfix)
             else if (isOperator(token)) // if the token is an operator
             {
                 BinaryNode *rt, *lt; // right and left temporary nodes
-                if (!betStack.empty())
+                if (!betStack.empty())  // if the stack is empty
                 {
                     rt = betStack.top();
                     betStack.pop();
                 }
+                else {
+                    ret = false;
+                    break;
+                }
+
+                if (!betStack.empty())  // if the stack is empty
+                {
+                    lt = betStack.top();
+                    betStack.pop();
+                }
+                else {
+                    ret = false;
+                    break;
+                }
+
+                BinaryNode *op = new BinaryNode(token, lt, rt); // create a new node with operators and operands
+                betStack.push(op);                              // push the new node into the stack
             }
+            token = ""; // reset the token string
         }
     }
 }
