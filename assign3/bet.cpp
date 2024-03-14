@@ -115,12 +115,12 @@ bool BET::buildFromPostFix(const string &postfix)
     return ret;
 }
 
-void BET::printInfixExpression(BinaryNode *n) {
+void BET::printInfixExpression() const {
     printInfixExpression(root);
     cout << endl;
 }
 
-void BET::printPostfixExpression(BinaryNode *n) {
+void BET::printPostfixExpression() const {
     printPostfixExpression(root);
     cout << endl;
 }
@@ -138,6 +138,38 @@ bool BET::empty() {
 }
 
 void BET::ClearStack() {
-    while (!betStack.empty())
+    while (!betStack.empty())   // pop each item in the stack while it isn't empty
         betStack.pop();
+}
+
+bool BET::isOperator(const string &s)   // if string is an operator
+{
+    return (s == "+" || s == "-" || s == "/" || s == "*");
+}
+
+bool BET::isOperand(const string &s)    // if string is an operand
+{
+    if (s.length() == 1) {
+        char c = s[0];
+        return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') || (c == '_'));
+    }
+    else
+        return true;
+}
+
+/* PRIVATE */
+
+// print infix expression by navigating through tree by LEFT, ELEMENT, RIGHT
+void BET::printInfixExpression(BET::BinaryNode *n) const {
+    if (n != nullptr)
+    {
+        if (isOperator(n->element) && n != root)    // if node is an operator and not root node
+            cout << "( ";
+        printInfixExpression(n->left);
+        cout << n->element << " ";
+        printInfixExpression(n->right);
+
+        if (isOperator(n->element) && n != root)
+            cout << ") ";
+    }
 }

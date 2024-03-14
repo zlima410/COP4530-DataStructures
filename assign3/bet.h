@@ -35,6 +35,9 @@ class BET {
         size_t leaf_nodes(); // number of leaf nodes in the tree
         bool empty();        // test if the tree is empty
 
+        void printInfixExpression() const;
+        void printPostfixExpression() const;
+
     private:
         stack<BinaryNode*> betStack;    // stack used by the binary expression tree
         BinaryNode *root;               // bet's root node
@@ -44,9 +47,9 @@ class BET {
         bool isOperand(const string &s);
 
         // recursive functions
-        void printInfixExpression(BinaryNode *n);   // print the infix expression
-        void makeEmpty(BinaryNode* &t);             // delete all nodes in the subtree and call the destructor
-        void printPostfixExpression(BinaryNode *n); // print the postfix expression
+        void printInfixExpression(BinaryNode *n) const;   // print the infix expression
+        void makeEmpty(BinaryNode* &t);                   // delete all nodes in the subtree and call the destructor
+        void printPostfixExpression(BinaryNode *n) const; // print the postfix expression
 
         BinaryNode *clone(BinaryNode *t) const; // clone all nodes and call the assignment operator overload
         size_t size(BinaryNode *t);             // number of nodes in the subtree of t
