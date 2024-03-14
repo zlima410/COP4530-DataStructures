@@ -66,7 +66,7 @@ bool BET::buildFromPostFix(const string &postfix)
             else if (isOperator(token)) // if the token is an operator
             {
                 BinaryNode *rt, *lt; // right and left temporary nodes
-                if (!betStack.empty())  // if the stack is empty
+                if (!betStack.empty())  // if the stack is not empty
                 {
                     rt = betStack.top();
                     betStack.pop();
@@ -76,7 +76,7 @@ bool BET::buildFromPostFix(const string &postfix)
                     break;
                 }
 
-                if (!betStack.empty())  // if the stack is empty
+                if (!betStack.empty())  // if the stack is not empty
                 {
                     lt = betStack.top();
                     betStack.pop();
@@ -92,4 +92,25 @@ bool BET::buildFromPostFix(const string &postfix)
             token = ""; // reset the token string
         }
     }
+
+    if (!betStack.empty())
+    {
+        root = betStack.top(); 
+
+        if (betStack.size() > 1 && isOperand(root->element))    // if the stack has leftover operands
+            ret = false;
+    }
+    else 
+        ret = false;
+
+    if (!ret) {
+        cout << "Wrong postfix expression" << endl;
+
+        if (!empty())   // clear attempted tree
+        {
+            makeEmpty(root);
+            ClearStack();
+        }
+    }
+    return ret;
 }
