@@ -114,3 +114,13 @@ bool BET::buildFromPostFix(const string &postfix)
     }
     return ret;
 }
+
+void BET::printInfixExpression(BinaryNode *n) {
+    printInfixExpression(root);
+    cout << endl;
+}
+
+void BET::printPostfixExpression(BinaryNode *n) {
+    printPostfixExpression(root);
+    cout << endl;
+}
