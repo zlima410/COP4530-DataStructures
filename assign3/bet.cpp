@@ -206,3 +206,11 @@ BET::BinaryNode * BET::clone(BET::BinaryNode* t) const {
     else
         return new BinaryNode{t->element, clone(t->left), clone(t->right)};
 }
+
+// return the number of nodes by counting recursively
+size_t BET::size(BET::BinaryNode *t) const {
+    if (t == nullptr)
+        return 0;
+    else
+        return 1 + size(t->left) + size(t->right);
+}
