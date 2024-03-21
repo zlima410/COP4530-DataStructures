@@ -125,15 +125,15 @@ void BET::printPostfixExpression() const {
     cout << endl;
 }
 
-size_t BET::size() {
+size_t BET::size() const {
     return size(root);
 }
 
-size_t BET::leaf_nodes() {
+size_t BET::leaf_nodes() const {
     return leaf_nodes(root);
 }
 
-bool BET::empty() {
+bool BET::empty() const {
     return {root == nullptr};
 }
 
@@ -142,12 +142,12 @@ void BET::ClearStack() {
         betStack.pop();
 }
 
-bool BET::isOperator(const string &s)   // if string is an operator
+bool BET::isOperator(const string &s) const   // if string is an operator
 {
     return (s == "+" || s == "-" || s == "/" || s == "*");
 }
 
-bool BET::isOperand(const string &s)    // if string is an operand
+bool BET::isOperand(const string &s) const   // if string is an operand
 {
     if (s.length() == 1) {
         char c = s[0];
@@ -159,7 +159,7 @@ bool BET::isOperand(const string &s)    // if string is an operand
 
 /* PRIVATE */
 
-// print infix expression by navigating through tree by LEFT, ELEMENT, RIGHT
+// print infix expression by navigating through tree by left, element, right
 void BET::printInfixExpression(BET::BinaryNode *n) const {
     if (n != nullptr)
     {
@@ -172,4 +172,29 @@ void BET::printInfixExpression(BET::BinaryNode *n) const {
         if (isOperator(n->element) && n != root)
             cout << ") ";
     }
+}
+
+// print postfix expression by navigating through tree by left, right, element
+void BET::printPostfixExpression(BET::BinaryNode *n) const
+{
+    if (n != nullptr) {
+        printPostfixExpression(n->left);
+        printPostfixExpression(n->right);
+        cout << n->element << " ";
+    }
+}
+
+// frees memory allocated to a tree by recursively calling delete
+void BET::makeEmpty(BinaryNode* &t) {
+    if (t != nullptr)   // if node is not empty delete 
+    {
+        // make sure t is not a leaf node by checking if left and right are nullptr
+        if (t->left != nullptr)
+            makeEmpty(t->left);
+        if (t->right != nullptr)
+            makeEmpty(t->right);
+        delete t;   // free the memory
+    }
+
+    t = nullptr;    // set t to nullptr to end recursion
 }

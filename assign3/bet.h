@@ -31,9 +31,9 @@ class BET {
         bool buildFromPostFix(const string& postfix);    // test if the tree built successfully
 
         // accessors
-        size_t size();       // number of nodes in the tree
-        size_t leaf_nodes(); // number of leaf nodes in the tree
-        bool empty();        // test if the tree is empty
+        size_t size() const;       // number of nodes in the tree
+        size_t leaf_nodes() const; // number of leaf nodes in the tree
+        bool empty() const;        // test if the tree is empty
 
         void printInfixExpression() const;
         void printPostfixExpression() const;
@@ -43,8 +43,8 @@ class BET {
         BinaryNode *root;               // bet's root node
 
         void ClearStack();
-        bool isOperator(const string &s);
-        bool isOperand(const string &s);
+        bool isOperator(const string &s) const;
+        bool isOperand(const string &s) const;
 
         // recursive functions
         void printInfixExpression(BinaryNode *n) const;   // print the infix expression
@@ -52,8 +52,8 @@ class BET {
         void printPostfixExpression(BinaryNode *n) const; // print the postfix expression
 
         BinaryNode *clone(BinaryNode *t) const; // clone all nodes and call the assignment operator overload
-        size_t size(BinaryNode *t);             // number of nodes in the subtree of t
-        size_t leaf_nodes(BinaryNode *t);       // number of leaf nodes in the subtree t
+        size_t size(BinaryNode *t) const;             // number of nodes in the subtree of t
+        size_t leaf_nodes(BinaryNode *t) const;       // number of leaf nodes in the subtree t
 };
 
 #endif
