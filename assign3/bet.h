@@ -27,7 +27,7 @@ class BET {
         ~BET();                     // destructor
 
         // mutators
-        const BET &operator=(const BET &);               // assignment operator overload
+        const BET & operator=(const BET &);               // assignment operator overload
         bool buildFromPostFix(const string& postfix);    // test if the tree built successfully
 
         // accessors
