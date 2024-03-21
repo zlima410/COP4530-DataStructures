@@ -199,3 +199,10 @@ void BET::makeEmpty(BinaryNode* &t) {
     t = nullptr;    // set t to nullptr to end recursion
 }
 
+// clone a given tree by recursively creating new nodes
+BET::BinaryNode * BET::clone(BET::BinaryNode* t) const {
+    if (t == nullptr)
+        return nullptr;
+    else
+        return new BinaryNode{t->element, clone(t->left), clone(t->right)};
+}
