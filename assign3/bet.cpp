@@ -17,7 +17,7 @@ BET::BET(const BET &rhs) : root{nullptr} // copy constructor
 
 BET::~BET() // destructor
 {
-    if (!empty)
+    if (!empty())
         makeEmpty(root);
     if (root != nullptr)
         delete root;
@@ -41,7 +41,7 @@ const BET & BET::operator=(const BET &rhs) // assignment operator overload
 
 bool BET::buildFromPostfix(const string &postfix)
 {
-    if (!empty) // make sure a new tree is being made
+    if (!empty()) // make sure a new tree is being made
     {
         makeEmpty(root);
         ClearStack();
