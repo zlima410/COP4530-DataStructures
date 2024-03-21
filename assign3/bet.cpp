@@ -23,7 +23,7 @@ BET::~BET() // destructor
         delete root;
 }
 
-const BET &BET::operator=(const BET &rhs) // assignment operator overload
+const BET & BET::operator=(const BET &rhs) // assignment operator overload
 {
     if (this != &rhs) // check for self assignment
     {
@@ -198,3 +198,4 @@ void BET::makeEmpty(BinaryNode* &t) {
 
     t = nullptr;    // set t to nullptr to end recursion
 }
+
