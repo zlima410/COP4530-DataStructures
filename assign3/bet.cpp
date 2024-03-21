@@ -214,3 +214,15 @@ size_t BET::size(BET::BinaryNode *t) const {
     else
         return 1 + size(t->left) + size(t->right);
 }
+
+// return the number of leaf nodes by counting recursively
+size_t BET::leaf_nodes(BET::BinaryNode *t) const {
+    if (t == nullptr)
+        return 0;
+    
+    // if the node has no childern it is a leaf node
+    if (t->left == nullptr && t->right == nullptr)
+        return 1;
+    else
+        return 0 + leaf_nodes(t->left) + leaf_nodes(t->right);
+}
