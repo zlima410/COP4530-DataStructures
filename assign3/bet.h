@@ -28,7 +28,7 @@ class BET {
 
         // mutators
         const BET & operator=(const BET &);               // assignment operator overload
-        bool buildFromPostFix(const string& postfix);    // test if the tree built successfully
+        bool buildFromPostfix(const string& postfix);    // test if the tree built successfully
 
         // accessors
         size_t size() const;       // number of nodes in the tree
