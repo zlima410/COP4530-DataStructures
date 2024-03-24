@@ -137,6 +137,12 @@ bool BET::empty() const {
     return {root == nullptr};
 }
 
+int BET::precedence(const string & op) const {
+    if (op == "*" || op == "/") return 2;
+    if (op == "+" || op == "-") return 1;
+    return 0;
+}
+
 void BET::ClearStack() {
     while (!betStack.empty())   // pop each item in the stack while it isn't empty
         betStack.pop();
@@ -163,14 +169,15 @@ bool BET::isOperand(const string &s) const   // if string is an operand
 void BET::printInfixExpression(BET::BinaryNode *n) const {
     if (n != nullptr)
     {
-        if (isOperator(n->element) && n != root)    // if node is an operator and not root node
+        bool isOp = isOperator(n->element);
+        if (isOp && n->left && isOperator(n->left->element) && precedence(n->element) <= precedence(n->left->element))
             cout << "( ";
         printInfixExpression(n->left);
-        cout << n->element << " ";
-        printInfixExpression(n->right);
-
-        if (isOperator(n->element) && n != root)
+        if (isOp)
+            cout << n->element << " ";
+        if (isOp && n->right && isOperator(n->right->element) && precedence(n->element) < precedence(n->right->element))
             cout << ") ";
+        printInfixExpression(n->right);
     }
 }
 
