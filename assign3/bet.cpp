@@ -6,6 +6,7 @@ BET::BET() : root{nullptr} {}; // default constructor
 BET::BET(const string &postfix) : root{nullptr} // one parameter constructor that takes in postfix expression string
 {
     buildFromPostfix(postfix); // call to buildFromPostfix
+    cout << "Successfully built the tree given " << postfix << endl;
 }
 
 BET::BET(const BET &rhs) : root{nullptr} // copy constructor

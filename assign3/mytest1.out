@@ -1,0 +1,24 @@
+Enter the first postfix expression: Successfully built the tree given 4 50 6 + +
+Infix expression: 4 + ( 50 + 6 ) 
+Postfix expression: 4 50 6 + + 
+Number of nodes: 5
+Number of leaf nodes: 3
+Testing copy constructor: 4 + ( 50 + 6 ) 
+Testing assignment operator: 4 + ( 50 + 6 ) 
+Enter a postfix expression (or "quit" to quit): Infix expression: ( 4 + 50 ) + 6 
+Postfix expression: 4 50 + 6 + 
+Number of nodes: 5
+Number of leaf nodes: 3
+Enter a postfix expression (or "quit" to quit): Infix expression: ( 4 + 50 ) + ( 6 * 2 ) 
+Postfix expression: 4 50 + 6 2 * + 
+Number of nodes: 7
+Number of leaf nodes: 4
+Enter a postfix expression (or "quit" to quit): Infix expression: ( 4 + ( 50 + 6 ) ) * 2 
+Postfix expression: 4 50 6 + + 2 * 
+Number of nodes: 7
+Number of leaf nodes: 4
+Enter a postfix expression (or "quit" to quit): Infix expression: ( a + b ) * ( c * ( d + e ) ) 
+Postfix expression: a b + c d e + * * 
+Number of nodes: 9
+Number of leaf nodes: 5
+Enter a postfix expression (or "quit" to quit): 
