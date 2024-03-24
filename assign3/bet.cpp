@@ -162,7 +162,20 @@ bool BET::isOperand(const string &s) const   // if string is an operand
 
 // print infix expression by navigating through tree by left, element, right
 void BET::printInfixExpression(BET::BinaryNode *n) const {
-    if (n != nullptr)
+    if (n == nullptr) return;
+
+    // Determine if parentheses are needed
+    // This is a simplified check. For more complex scenarios, consider enhancing these conditions.
+    bool needsParens = n != root && isOperator(n->element) && 
+                       (n->left != nullptr && isOperator(n->left->element)) ||
+                       (n->right != nullptr && isOperator(n->right->element));
+
+    if (needsParens) cout << "( ";
+    if (n->left != nullptr) printInfixExpression(n->left); // Print left subtree
+    cout << n->element << " "; // Print current node
+    if (n->right != nullptr) printInfixExpression(n->right); // Print right subtree
+    if (needsParens) cout << ") ";
+    /* if (n != nullptr)
     {
         if (isOperator(n->element) && n != root)    // if node is an operator and not the root
             cout << "( ";
@@ -171,7 +184,7 @@ void BET::printInfixExpression(BET::BinaryNode *n) const {
         printInfixExpression(n->right);
         if (isOperator(n->element) && n != root)    // if node is an operator and not the root
             cout << ") ";
-    }
+    } */
 }
 
 // print postfix expression by navigating through tree by left, right, element
