@@ -35,8 +35,6 @@ class BET {
         size_t leaf_nodes() const; // number of leaf nodes in the tree
         bool empty() const;        // test if the tree is empty
 
-        int precedence(const string& op) const; // find operator precedence help function for printing
-
         void printInfixExpression() const;
         void printPostfixExpression() const;
 
