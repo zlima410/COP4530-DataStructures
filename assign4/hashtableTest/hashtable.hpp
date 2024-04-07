@@ -76,6 +76,8 @@ template <typename K, typename V>
 bool HashTable<K, V>::contains(const K &k) const
 {
     // check if key k exists in the hash table
+    auto &whichList = theLists[myhash(k)];
+    return find(whichList.begin(), whichList.end(), k) != whichList.end();
 }
 
 template <typename K, typename V>
@@ -100,6 +102,14 @@ template <typename K, typename V>
 bool HashTable<K, V>::remove(const K &k)
 {
     // remove the key k and its value from the hash table
+    auto &whichList = theLists[myhash(k)];
+    auto itr = find(whichList.begin(), whichList.end(), k);
+
+    if (itr.whichList.end())
+        return false;
+    whichList.erase(itr);
+    --currentSize;
+    return true;
 }
 
 template <typename K, typename V>
