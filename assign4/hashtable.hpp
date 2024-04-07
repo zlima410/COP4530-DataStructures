@@ -1,3 +1,5 @@
+#include "hashtable.h"
+
 template <typename K, typename V>
 unsigned long HashTable<K, V>::prime_below(unsigned long n)
 {
@@ -48,5 +50,83 @@ void HashTable<K, V>::setPrimes(vector<unsigned long> & vprimes)
         for(j = i + i ; j < n; j += i)
           vprimes[j] = 0;
     }
+}
+
+
+template <typename K, typename V>
+HashTable<K, V>::HashTable(size_t size) {
+    // constructor
+    // initialize vector with size or default_capacity based on given size
+}
+
+template <typename K, typename V>
+HashTable<K, V>::~HashTable() {
+    // destructor
+}
+
+template <typename K, typename V>
+bool HashTable<K, V>::contains(const K& k) const {
+    // check if key k exists in the hash table
+}
+
+template <typename K, typename V>
+bool HashTable<K, V>::match(const std::pair<K, V> &kv) const {
+    // check if key-value pair kv exists in the hash table
+}
+
+template <typename K, typename V>
+bool HashTable<K, V>::insert(const std::pair<K, V> &kv) {
+    // insert kv into the hash table
+}
+
+template <typename K, typename V>
+bool HashTable<K, V>::insert(std::pair<K, V> &&kv) {
+    // insert a rvalue kv into the hash table
+}
+
+template <typename K, typename V>
+bool HashTable<K, V>::remove(const K &k) {
+    // remove the key k and its value from the hash table
+}
+
+template <typename K, typename V> 
+void HashTable<K, V>::clear() {
+    // clear the hash table
+}
+
+template <typename K, typename V>
+bool HashTable<K, V>::load(const char *filename) {
+    // load key-value pairs from a file
+}
+
+
+template <typename K, typename V>
+void HashTable<K, V>::dump() const {
+    // print the contents of the hash table for debugging
+}
+
+template <typename K, typename V>
+size_t HashTable<K, V>::size() const {
+    // return the current size of the hash table
+}
+
+template <typename K, typename V>
+bool HashTable<K, V>::write_to_file(const char *filename) const {
+    // write the key-value pairs of the hash table to a file
+}
+
+template <typename K, typename V>
+void HashTable<K, V>::makeEmpty() {
+    // helper function to clear the hash table and preparing it for rehash or destruction
+}
+
+template <typename K, typename V>
+void HashTable<K, V>::rehash() {
+    // helper function to rehash when the hash table exceeds threshold
+}
+
+template <typename K, typename V>
+size_t HashTable<K, V>::myhash(const K &k) const {
+    // implement hash function
 }
 
