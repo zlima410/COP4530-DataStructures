@@ -84,18 +84,48 @@ template <typename K, typename V>
 bool HashTable<K, V>::match(const std::pair<K, V> &kv) const
 {
     // check if key-value pair kv exists in the hash table
+    auto &whichList = theLists[myhash(kv.first)];
+    return find(whichList.begin(), whichList.end(), kv) != whichList.end();
 }
 
 template <typename K, typename V>
 bool HashTable<K, V>::insert(const std::pair<K, V> &kv)
 {
     // insert kv into the hash table
+    auto &whichList = theLists[myhash(kv.first)];
+    if (find(whichList.begin(), whichList.end(), kv) != whichList.end())
+        return false;
+
+    whichList.push_back(kv);
+
+    if (++currentSize > theLists.size())
+        rehash();
+
+    return true;
 }
 
 template <typename K, typename V>
 bool HashTable<K, V>::insert(std::pair<K, V> &&kv)
 {
     // insert a rvalue kv into the hash table
+    auto &whichList = theLists[myhash(kv.first)];
+    auto itr = find(whichList.begin(), whichList.end(),
+                    [&](const std::pair<K, V> &element)
+                    { return element.first == kv.first });
+
+    if (itr != whichList.end())
+    {
+        if (itr->second != kv.second)
+            itr->second = std::move(kv.second);
+        return false;
+    } else {
+        whichList.push_back(std::move(kv));
+
+        if (++currentSize > theLists.size())
+            rehash();
+
+        return true;
+    }
 }
 
 template <typename K, typename V>
