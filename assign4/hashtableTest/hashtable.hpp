@@ -61,7 +61,7 @@ HashTable<K, V>::HashTable(size_t size)
     if (tableSize == 0)
         tableSize = default_capacity;
 
-    theList.resize(tableSize);
+    theLists.resize(tableSize);
     currentSize = 0;
 }
 
@@ -69,6 +69,7 @@ template <typename K, typename V>
 HashTable<K, V>::~HashTable()
 {
     // destructor
+    makeEmpty();
 }
 
 template <typename K, typename V>
@@ -117,6 +118,24 @@ template <typename K, typename V>
 void HashTable<K, V>::dump() const
 {
     // print the contents of the hash table for debugging
+    for (size_t i = 0; i < theLists.size(); ++i)
+    {
+        if (theLists[i].empty())
+            cout << "[" << i << "]" << endl;
+        else
+        {
+            cout << i << ": ";
+            for (auto itr = theLists[i].begin(); itr != theLists[i].end(); ++itr)
+            {
+                if (itr != theLists[i].begin())
+                    cout << ": ";
+
+                cout << itr->first << " " << itr->second;
+            }
+
+            cout << endl;
+        }
+    }
 }
 
 template <typename K, typename V>
@@ -135,6 +154,8 @@ template <typename K, typename V>
 void HashTable<K, V>::makeEmpty()
 {
     // helper function to clear the hash table and preparing it for rehash or destruction
+    for (auto &thisList : theLists)
+        thisList.clear();
 }
 
 template <typename K, typename V>
