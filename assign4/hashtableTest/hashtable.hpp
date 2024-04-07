@@ -164,7 +164,16 @@ void HashTable<K, V>::makeEmpty()
 template <typename K, typename V>
 void HashTable<K, V>::rehash()
 {
-    // helper function to rehash when the hash table exceeds threshold
+    // helper function to rehash the hash table when currentSize is larger than the vector's size
+    auto oldLists = theLists;
+    theLists.resize(prime_below(2 * theLists.size()));
+    for (auto &list : theLists)
+        list.clear();
+
+    currentSize = 0;
+    for (auto &list : oldLists)
+        for (auto &kv : list)
+            insert(std::move(kv));
 }
 
 template <typename K, typename V>
