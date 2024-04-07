@@ -69,7 +69,7 @@ template <typename K, typename V>
 HashTable<K, V>::~HashTable()
 {
     // destructor
-    makeEmpty();
+    clear();
 }
 
 template <typename K, typename V>
@@ -106,6 +106,7 @@ template <typename K, typename V>
 void HashTable<K, V>::clear()
 {
     // clear the hash table
+    makeEmpty();
 }
 
 template <typename K, typename V>
@@ -156,6 +157,8 @@ void HashTable<K, V>::makeEmpty()
     // helper function to clear the hash table and preparing it for rehash or destruction
     for (auto &thisList : theLists)
         thisList.clear();
+
+    currentSize = 0;
 }
 
 template <typename K, typename V>
