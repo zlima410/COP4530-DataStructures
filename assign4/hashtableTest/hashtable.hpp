@@ -129,4 +129,3 @@ template <typename K, typename V>
 size_t HashTable<K, V>::myhash(const K &k) const {
     // implement hash function
 }
-
