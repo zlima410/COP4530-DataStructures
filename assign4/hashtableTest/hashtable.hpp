@@ -202,6 +202,16 @@ template <typename K, typename V>
 bool HashTable<K, V>::write_to_file(const char *filename) const
 {
     // write the key-value pairs of the hash table to a file
+    std::ofstream file(filename);
+    if(!file)
+        return false;
+
+    for(const auto & theList : theLists) {
+        for(const auto & kv : list)
+            file << kv.first << " " << kv.second << endl;
+
+        return true;
+    }
 }
 
 template <typename K, typename V>
