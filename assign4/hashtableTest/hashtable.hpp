@@ -112,7 +112,7 @@ bool HashTable<K, V>::insert(std::pair<K, V> &&kv)
     auto itr = find(
         whichList.begin(), whichList.end(),
         [&](const std::pair<K, V> &element)
-        { return element.first == kv.first });
+        { return element.first == kv.first; });
 
     if (itr != whichList.end())
     {
@@ -160,7 +160,8 @@ bool HashTable<K, V>::load(const char *filename)
     if (!file)
         return false;
 
-    K ke V value;
+    K key;
+    V value;
     while (file >> key >> value)
         insert(std::make_pair(key, value));
 
@@ -207,7 +208,7 @@ bool HashTable<K, V>::write_to_file(const char *filename) const
         return false;
 
     for(const auto & theList : theLists) {
-        for(const auto & kv : list)
+        for(const auto & kv : theList)
             file << kv.first << " " << kv.second << endl;
 
         return true;
