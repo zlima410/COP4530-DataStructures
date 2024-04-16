@@ -138,7 +138,7 @@ bool HashTable<K, V>::remove(const K &k)
     auto &whichList = theLists[myhash(k)];
     auto itr = find(whichList.begin(), whichList.end(), k);
 
-    if (itr.whichList.end())
+    if (itr == whichList.end())
         return false;
     whichList.erase(itr);
     --currentSize;
