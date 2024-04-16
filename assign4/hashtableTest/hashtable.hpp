@@ -78,7 +78,12 @@ template <typename K, typename V>
 bool HashTable<K, V>::match(const std::pair<K, V> &kv) const {
   // check if key-value pair kv exists in the hash table
   auto &whichList = theLists[myhash(kv.first)];
-  return find(whichList.begin(), whichList.end(), kv) != whichList.end();
+  for (const auto &element : whichList) {
+    if (element == kv)
+      return true;
+  }
+
+  return false;
 }
 
 template <typename K, typename V>
