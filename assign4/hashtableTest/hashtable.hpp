@@ -45,14 +45,10 @@ void HashTable<K, V>::setPrimes(vector<unsigned long> &vprimes) {
   }
 }
 
-template <typename K, typename V> HashTable<K, V>::HashTable(size_t size) {
+template <typename K, typename V> HashTable<K, V>::HashTable(size_t size = 101) {
   // constructor
   // initialize vector with size or default_capacity based on given size
-  size_t tableSize = prime_below(size);
-  if (tableSize == 0)
-    tableSize = default_capacity;
-
-  theLists.resize(tableSize);
+  theList.resize(prime_below(size));
   currentSize = 0;
 }
 
