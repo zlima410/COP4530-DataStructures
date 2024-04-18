@@ -117,29 +117,17 @@ bool HashTable<K, V>::insert(const std::pair<K, V> &kv)
 template <typename K, typename V>
 bool HashTable<K, V>::insert(std::pair<K, V> &&kv)
 {
-    // insert a rvalue kv into the hash table
+    // insert an rvalue kv into the hash table
     auto &whichList = theLists[myhash(kv.first)];
-    auto itr = find(whichList.begin(), whichList.end(),
-                    [&](const std::pair<K, V> &element)
-                    {
-                        return element.first == kv.first;
-                    });
-
-    if (itr != whichList.end())
-    {
-        if (itr->second != kv.second)
-            itr->second = std::move(kv.second);
+    if (find(whichList.begin(), whichList.end(), kv) != whichList.end())
         return false;
-    }
-    else
-    {
-        whichList.push_back(std::move(kv));
 
-        if (++currentSize > theLists.size())
-            rehash();
+    whichList.push_back(std::move(kv));
 
-        return true;
-    }
+    if (++currentSize > theLists.size())
+        rehash();
+
+    return true;
 }
 
 template <typename K, typename V>
