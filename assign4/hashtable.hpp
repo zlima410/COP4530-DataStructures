@@ -73,12 +73,7 @@ bool HashTable<K, V>::contains(const K &k) const
 {
     // check if key k exists in the hash table
     auto &whichList = theLists[myhash(k)];
-
-    for (auto &theList : whichList)
-        if (theList.first == k)
-            return true;    // key is in the table
-
-    return false;
+    return find(begin(whichList), end(whichList), k) != end(whichList);
 }
 
 template <typename K, typename V>
@@ -86,16 +81,7 @@ bool HashTable<K, V>::match(const std::pair<K, V> &kv) const
 {
     // check if key-value pair kv exists in the hash table
     auto &whichList = theLists[myhash(kv.first)];
-    if (whichList.size() > 0)
-    {
-        for (auto &theList : whichList) {
-            if (theList.first == kv.first)
-                if (theList.second == kv.second)
-                    return true;    // key and value are both in the table
-        }
-        return false;
-    } else 
-        return false;
+    return (find(begin(whichList), end(whichList), kv) != end(whichList));
 }
 
 template <typename K, typename V>
