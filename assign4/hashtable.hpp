@@ -89,7 +89,7 @@ bool HashTable<K, V>::insert(const std::pair<K, V> &kv)
 {
     // insert kv into the hash table
     auto &whichList = theLists[myhash(kv.first)];
-    if (find(whichList.begin(), whichList.end(), kv) != whichList.end())
+    if (find(begin(whichList), end(whichList), kv) != end(whichList))
         return false;
 
     whichList.push_back(kv);
@@ -105,7 +105,7 @@ bool HashTable<K, V>::insert(std::pair<K, V> &&kv)
 {
     // insert an rvalue kv into the hash table
     auto &whichList = theLists[myhash(kv.first)];
-    if (find(whichList.begin(), whichList.end(), kv) != whichList.end())
+    if (find(begin(whichList), end(whichList), kv) != end(whichList))
         return false;
 
     whichList.push_back(std::move(kv));
@@ -121,9 +121,9 @@ bool HashTable<K, V>::remove(const K &k)
 {
     // remove the key k and its value from the hash table
     auto &whichList = theLists[myhash(k)];
-    auto itr = find(whichList.begin(), whichList.end(), k);
+    auto itr = find(begin(whichList), end(whichList), k);
 
-    if (itr == whichList.end())
+    if (itr == end(whichList))
         return false;
     whichList.erase(itr);
     --currentSize;
