@@ -15,14 +15,15 @@ bool load(const char *filename) {
 
 // adds an encrypted password based on the KV value
 bool addUser(std::pair<string,  string> & kv) {
-    kv.second = encrypt(kv.second);
-    return h.insert(kv);
+    string encryptPassword = encrypt(kv.second);
+    pair<string, string> encryptKV(kv.first, encryptPassword);
+    return h.insert(encryptKV);
 }
 
 // 
 bool addUser(std::pair<string,  string> && kv) {
-    kv.second = encrypt(kv.second);
-    return h.insert(std::move(kv));
+    pair<string, string> encryptKV(std::move(kv));
+    return addUser(encryptKV);
 }
 
 bool removeUser(const string & k) {
