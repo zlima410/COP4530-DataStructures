@@ -29,20 +29,14 @@ bool removeUser(const string & k) {
 }
 
 bool changePassword(const std::pair<string, string> &p, const string & newpassword) {
-    if (find(p.first)) {
-        std::pair<string, string> oldEKV = std::make_pair(p.first, encrypt(p.second));
-        if (h.match(oldEKV)) {
-            std::pair<string, string> eKV = std::make_pair(p.first, encrypt(newpassword));
-            if (!h.match(eKV))
-                return h.insert(eKV);
-            else
-                return false;
-        } else {
-            return false;
-        }
-    } else {
+    if (!h.contains(p.first))
         return false;
-    }
+    string encryptedNewPassword = encrypt(newpassword);
+    if (encryptedNewPassword == p.second)
+        return false;
+    h.remove(p.first);
+    h.insert(make_pair(p.first, encryptedNewPassword));
+    return true; 
 }
 
 bool find(const string & user) {
