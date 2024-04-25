@@ -15,9 +15,7 @@ bool load(const char *filename) {
 
 // adds an encrypted password based on the KV value
 bool addUser(std::pair<string,  string> & kv) {
-    string encryptPassword = encrypt(kv.second);
-    pair<string, string> encryptKV(kv.first, encryptPassword);
-    return h.insert(encryptKV);
+    return h.insert(make_pair(kv.first, encrypt(kv.second)));
 }
 
 // 
