@@ -53,7 +53,7 @@ void HashTable<K, V>::setPrimes(vector<unsigned long> &vprimes)
 }
 
 template <typename K, typename V>
-HashTable<K, V>::HashTable(size_t size = 101)
+HashTable<K, V>::HashTable(size_t size)
 {
     // constructor
     // initialize vector with size or default_capacity based on given size
@@ -73,7 +73,7 @@ bool HashTable<K, V>::contains(const K &k) const
 {
     // check if key k exists in the hash table
     auto &whichList = theLists[myhash(k)];
-    return find(begin(whichList), end(whichList), k) != end(whichList);
+    return find(whichList.begin(), whichList.end(), k) != whichList.end();
 }
 
 template <typename K, typename V>
@@ -81,7 +81,7 @@ bool HashTable<K, V>::match(const std::pair<K, V> &kv) const
 {
     // check if key-value pair kv exists in the hash table
     auto &whichList = theLists[myhash(kv.first)];
-    return (find(begin(whichList), end(whichList), kv) != end(whichList));
+    return find(whichList.begin(), whichList.end(), kv) != whichList.end();
 }
 
 template <typename K, typename V>
@@ -89,7 +89,7 @@ bool HashTable<K, V>::insert(const std::pair<K, V> &kv)
 {
     // insert kv into the hash table
     auto &whichList = theLists[myhash(kv.first)];
-    if (find(begin(whichList), end(whichList), kv) != end(whichList))
+    if (find(find(whichList.begin(), whichList.end(), kv) != whichList.end())
         return false;
 
     whichList.push_back(kv);
@@ -105,7 +105,7 @@ bool HashTable<K, V>::insert(std::pair<K, V> &&kv)
 {
     // insert an rvalue kv into the hash table
     auto &whichList = theLists[myhash(kv.first)];
-    if (find(begin(whichList), end(whichList), kv) != end(whichList))
+    if (find(whichList.begin(), whichList.end(), kv) != whichList.end())
         return false;
 
     whichList.push_back(std::move(kv));
@@ -121,9 +121,9 @@ bool HashTable<K, V>::remove(const K &k)
 {
     // remove the key k and its value from the hash table
     auto &whichList = theLists[myhash(k)];
-    auto itr = find(begin(whichList), end(whichList), k);
+    auto itr = find(whichList.begin(), whichList.end(), k);
 
-    if (itr == end(whichList))
+    if (itr == whichList.end())
         return false;
     whichList.erase(itr);
     --currentSize;
