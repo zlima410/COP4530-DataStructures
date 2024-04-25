@@ -60,7 +60,6 @@ HashTable<K, V>::HashTable(size_t size) : theLists(default_capacity)
     size_t newSize = prime_below(size);
     if (newSize == 0)
         newSize = default_capacity;
-
     theLists.resize(newSize);
 }
 
@@ -75,10 +74,9 @@ template <typename K, typename V>
 bool HashTable<K, V>::contains(const K &k) const
 {
     // check if key k exists in the hash table
-    auto &whichList = theLists[myhash(k)];
-    for (const auto &ele : whichList)
-    {
-        if (ele.first == k)
+    const auto &whichList = theLists[myhash(k)];
+    for (auto &pair : whichList) {
+        if (pair.first == k)
             return true;
     }
     return false;
@@ -88,31 +86,19 @@ template <typename K, typename V>
 bool HashTable<K, V>::match(const std::pair<K, V> &kv) const
 {
     // check if key-value pair kv exists in the hash table
-    auto &whichList = theLists[myhash(kv.first)];
-    for (const auto &ele : whichList)
-    {
-        if (ele == kv)
-            return true;
-    }
-    return false;
+    const auto &whichList = theLists[myhash(kv.first)];
+    return (find(whichList.begin(), whichList.end(), kv) != whichList.end());
 }
 
 template <typename K, typename V>
 bool HashTable<K, V>::insert(const std::pair<K, V> &kv)
 {
     // insert kv into the hash table
-    if (match(kv))
-        return false;
+    const auto &whichList = theLists[myhash(kv.first)];
 
-    auto &whichList = theLists[myhash(kv.first)];
-
-    for (auto &ele : whichList)
-    {
-        if (ele.first == kv.first)
-        {
-            ele.second = kv.second;
-            return true;
-        }
+    for (typename std::list<std::pair<K, V>>::iterator itr = whichList.begin(); itr != whichList.end(); ++itr) {
+        if (itr->first == kv.first)
+            return false;
     }
 
     whichList.push_back(kv);
@@ -127,16 +113,10 @@ template <typename K, typename V>
 bool HashTable<K, V>::insert(std::pair<K, V> &&kv)
 {
     // insert an rvalue kv into the hash table
-    if (match(kv))
-        return false;
-
     auto &whichList = theLists[myhash(kv.first)];
-
-    for (auto &ele : whichList)
-    {
-        if (ele.first == kv.first)
-        {
-            ele.second = std::move(kv.second);
+    for (auto &pair : whichList) {
+        if (pair.first == kv.first) {
+            pair.second = std::move(kv.second);
             return true;
         }
     }
@@ -154,17 +134,15 @@ bool HashTable<K, V>::remove(const K &k)
 {
     // remove the key k and its value from the hash table
     auto &whichList = theLists[myhash(k)];
-
     for (auto itr = whichList.begin(); itr != whichList.end(); ++itr)
     {
-        if ((*itr).first == k)
+        if (itr->first == k)
         {
             whichList.erase(itr);
             --currentSize;
             return true;
         }
     }
-
     return false;
 }
 
@@ -179,25 +157,18 @@ template <typename K, typename V>
 bool HashTable<K, V>::load(const char *filename)
 {
     // load key-value pairs from a file
-    ifstream fh(filename);
-    if (!fh.is_open())
+    std::ifstream fh(filename);
+    if (!fh.is_open()) {
+        cout << "Unable to open file " << filename << endl;
         return false;
+    }
 
     K key;
     V value;
     while (fh >> key >> value)
     {
-        if (contains(key))
-        {
-            cerr << "Error: key " << key << " already exists." << endl;
-            continue;
-        }
-
-        if (!insert(std::move(std::make_pair(key, value))))
-        {
-            cerr << "Error: unable to insert key-value pair." << endl;
-            return false;
-        }
+        if (!insert(make_pair(key, value)))
+            cout << "Error: " << key << "The key already exists." << endl;
     }
 
     fh.close();
@@ -208,15 +179,23 @@ template <typename K, typename V>
 void HashTable<K, V>::dump() const
 {
     // print the contents of the hash table for debugging
+    cout << "In dump, in total there are " << theLists.size() << " rows in the vector." << endl;
     for (size_t i = 0; i < theLists.size(); ++i)
     {
         cout << "v[" << i << "]:";
-        if (!theLists[i].empty())
+        if (theLists[i].empty())
+            cout << endl;
+        else
         {
-            for (const auto &pair : theLists[i])
-                cout << " " << pair.first << " " << pair.second;
+            bool firstPair = true;
+            for (const pair<K, V> & kv : theLists[i]) {
+                if (!firstPair)
+                    cout << ":";
+                cout << " " << kv.first << " " kv.second;
+                firstPair = false;
+            }
+            cout << endl;
         }
-        cout << endl;
     }
 }
 
@@ -231,15 +210,18 @@ template <typename K, typename V>
 bool HashTable<K, V>::write_to_file(const char *filename) const
 {
     // write the key-value pairs of the hash table to a file
-    ofstream fh(filename);
-    if (!fh.is_open())
+    std::ofstream fh(filename);
+    if (!fh.is_open()) {
+        cout << "Unable to open file " << filename << endl;
         return false;
+    }
 
     for (const auto &theList : theLists)
     {
         for (const auto &kv : theList)
             fh << kv.first << " " << kv.second << endl;
     }
+
     fh.close();
     return true;
 }
@@ -251,7 +233,8 @@ void HashTable<K, V>::makeEmpty()
     // destruction
     for (auto &thisList : theLists)
         thisList.clear();
-    theLists.clear();
+    
+    currentSize = 0;
 }
 
 template <typename K, typename V>
@@ -259,7 +242,7 @@ void HashTable<K, V>::rehash()
 {
     // helper function to rehash the hash table when currentSize is larger than
     // the vector's size
-    auto oldLists = theLists;
+    auto oldLists = std::move(theLists);
     theLists.resize(prime_below(2 * theLists.size()));
     for (auto &thisList : theLists)
         thisList.clear();
