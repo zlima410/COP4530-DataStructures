@@ -67,13 +67,27 @@ bool PassServer::removeUser(const string &k)
 
 bool PassServer::changePassword(const std::pair<string, string> &p, const string &newpassword)
 {
-    if (!h.contains(p.first))
+    if (newpassword == p.second) {
         return false;
-    string encryptedNewPassword = encrypt(newpassword);
-    if (encryptedNewPassword == p.second)
+    } else if (!h.contains(p.first)) {
         return false;
-    h.remove(p.first);
-    h.insert(make_pair(p.first, encryptedNewPassword));
+    } else {
+        string oldPassword = encrypt(p.second);
+        string newPassword = encrypt(newpassword);
+
+        std::pair<string, string> oldPair(p.first, oldPassword);
+        if (!h.match(oldPair)) {
+            return false;
+        } else {
+            std::pair<string, string> newPair(p.first, newPassword);
+            h.insert(newPair);
+            return true;
+        }
+    }
+    return false;
+    std::pair<string, string> encryptKV = std::make_pair(p.first. encrypt(newpassword));
+    if (!h.insert(encryptKV))
+        return false;
     return true;
 }
 
