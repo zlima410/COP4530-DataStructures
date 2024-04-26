@@ -21,7 +21,9 @@ string PassServer::encrypt(const string &str)
 }
 
 // constructor that calls the HashTable constructor
-PassServer::PassServer(size_t size) : h(size) {}
+PassServer::PassServer(size_t size) : h(size) {
+    cout << "In total there are " << size << " rows in the vector." << endl;
+}
 
 // destructor
 PassServer::~PassServer()
@@ -38,14 +40,24 @@ bool PassServer::load(const char *filename)
 // adds an encrypted password based on the KV value
 bool PassServer::addUser(std::pair<string, string> &kv)
 {
-    return h.insert(make_pair(kv.first, encrypt(kv.second)));
+    if (!h.contains(kv.first)) {
+        std::pair<string, string> encryptKV = std::make_pair(kv.first, encrypt(kv.second));
+        h.insert(encryptKV);
+        return true;
+    }
+    return false;
 }
 
 //
 bool PassServer::addUser(std::pair<string, string> &&kv)
 {
-    pair<string, string> encryptKV(std::move(kv));
-    return addUser(encryptKV);
+    if (!h.contains(kv.first))
+    {
+        std::pair<string, string> encryptKV = std::make_pair(kv.first, encrypt(kv.second));
+        h.insert(std::move(encryptKV));
+        return true;
+    }
+    return false;
 }
 
 bool PassServer::removeUser(const string &k)
