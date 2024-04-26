@@ -130,7 +130,7 @@ bool HashTable<K, V>::remove(const K &k)
     auto &whichList = theLists[myhash(k)];
     for (auto itr = whichList.begin(); itr != whichList.end(); ++itr)
     {
-        if ((itr->first == k)
+        if ((itr->first == k))
         {
             whichList.erase(itr);
             --currentSize;
@@ -239,11 +239,11 @@ void HashTable<K, V>::rehash()
     auto oldLists = std::move(theLists);
     theLists.resize(prime_below(2 * theLists.size()));
     for (auto &theList : theLists)
-        thisList.clear();
+        theList.clear();
 
     currentSize = 0;
-    for (auto &thisList : oldLists)
-        for (auto &kv : thisList)
+    for (auto &theList : oldLists)
+        for (auto &kv : theList)
             insert(std::move(kv));
 }
 
