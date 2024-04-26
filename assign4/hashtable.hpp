@@ -204,8 +204,9 @@ template <typename K, typename V>
 bool HashTable<K, V>::write_to_file(const char *filename) const
 {
     // write the key-value pairs of the hash table to a file
-    ofstream fh(filename);
-    if (!fh.is_open())
+    std::ofstream fh(filename);
+    if (!fh.is_open()) {
+        cout << "Unable to open file " << filename << endl;
         return false;
     }
 
@@ -214,6 +215,7 @@ bool HashTable<K, V>::write_to_file(const char *filename) const
         for (const auto &kv : theList)
             fh << kv.first << " " << kv.second << endl;
     }
+
     fh.close();
     return true;
 }
@@ -236,12 +238,12 @@ void HashTable<K, V>::rehash()
     // the vector's size
     auto oldLists = std::move(theLists);
     theLists.resize(prime_below(2 * theLists.size()));
-    for (auto &list : theLists)
-        list.clear();
+    for (auto &theList : theLists)
+        thisList.clear();
 
     currentSize = 0;
-    for (auto &list : oldLists)
-        for (auto &kv : list)
+    for (auto &thisList : oldLists)
+        for (auto &kv : thisList)
             insert(std::move(kv));
 }
 
