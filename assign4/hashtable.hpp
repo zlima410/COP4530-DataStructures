@@ -128,17 +128,15 @@ bool HashTable<K, V>::remove(const K &k)
 {
     // remove the key k and its value from the hash table
     auto &whichList = theLists[myhash(k)];
-
     for (auto itr = whichList.begin(); itr != whichList.end(); ++itr)
     {
-        if ((*itr).first == k)
+        if ((itr->first == k)
         {
             whichList.erase(itr);
             --currentSize;
             return true;
         }
     }
-
     return false;
 }
 
@@ -153,8 +151,9 @@ template <typename K, typename V>
 bool HashTable<K, V>::load(const char *filename)
 {
     // load key-value pairs from a file
-    ifstream fh(filename);
-    if (!fh.is_open())
+    std::ifstream fh(filename);
+    if (!fh.is_open()) {
+        cout << "Unable to open file " << filename << endl;
         return false;
     }
 
@@ -162,17 +161,8 @@ bool HashTable<K, V>::load(const char *filename)
     V value;
     while (fh >> key >> value)
     {
-        if (contains(key))
-        {
-            cerr << "Error: key " << key << " already exists." << endl;
-            continue;
-        }
-
-        if (!insert(std::move(std::make_pair(key, value))))
-        {
-            cerr << "Error: unable to insert key-value pair." << endl;
-            return false;
-        }
+        if (!insert(make_pair(key, value)))
+            cout << "Error: " << key << "The key already exists." << endl;
     }
 
     fh.close();
