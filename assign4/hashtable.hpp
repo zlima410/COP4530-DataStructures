@@ -179,11 +179,17 @@ void HashTable<K, V>::dump() const
         cout << "v[" << i << "]:";
         if (theLists[i].empty())
             cout << endl;
+        else
         {
-            for (const auto &pair : theLists[i])
-                cout << " " << pair.first << " " << pair.second;
+            bool firstPair = true;
+            for (const pair<K, V> & kv : theLists[i]) {
+                if (!firstPair)
+                    cout << ":";
+                cout << " " << kv.first << " " << kv.second;
+                firstPair = false;
+            }
+            cout << endl;
         }
-        cout << endl;
     }
 }
 
