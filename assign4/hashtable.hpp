@@ -252,5 +252,6 @@ size_t HashTable<K, V>::myhash(const K &k) const
 {
     // implement hash function
     static hash<K> hf;
+    cout << "hashed position of " << k << " is " << hf(k) << endl;
     return hf(k) % theLists.size();
 }
