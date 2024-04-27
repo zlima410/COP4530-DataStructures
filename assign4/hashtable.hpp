@@ -77,7 +77,7 @@ bool HashTable<K, V>::contains(const K &k) const
     // check if key k exists in the hash table
     const auto &whichList = theLists[myhash(k)];
     for (auto &pair : whichList) {
-        if (pair.first == k)
+        if (pair.first == k)    // if username is in the hashtable
             return true;
     }
     return false;
@@ -103,12 +103,12 @@ bool HashTable<K, V>::insert(const std::pair<K, V> &kv)
         for (auto itr = whichList.begin(); itr != whichList.end(); ++itr) {
             if (itr->first == kv.first) {
                 auto replacement = whichList.erase(itr);
-                whichList.insert(replacement, kv);
+                whichList.insert(replacement, kv);  // replace old password with new password
             }
         }
         return true;
     } else {
-        theLists[myhash(kv.first)].push_back(kv);
+        theLists[myhash(kv.first)].push_back(kv);   // insert a new user and their password
         if (++currentSize > theLists.size())
             rehash();
         return true;
